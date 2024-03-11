@@ -1,0 +1,50 @@
+.husky
+# User-specific stuff:
+.idea/
+# CMake
+cmake-build-debug/
+
+# IntelliJ
+out/
+
+# mpeltonen/sbt-idea plugin
+.idea_modules/
+
+
+node_modules/
+
+# Typescript v1 declaration files
+typings/
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# CodeRush
+.cr/
+
+
+
+### macOS template
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+
+=======
+# Local
+.env
+dist
+logs
+package-lock.json
+yarn-error.log
+.vscode/
+.cache/
+cache
+es
+lib
+.vitepress

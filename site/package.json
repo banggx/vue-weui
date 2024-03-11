@@ -1,0 +1,26 @@
+{
+  "name": "site",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
+    "docs:deploy": "node scripts/deploy.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@whyframe/core": "^0.1.10",
+    "@whyframe/vue": "^0.1.6",
+    "vitepress": "1.0.0-rc.32",
+    "vue": "^3.3.13"
+  },
+  "dependencies": {
+    "vue-weui": "workspace:^",
+    "vue-weui-utils": "workspace:^"
+  }
+}

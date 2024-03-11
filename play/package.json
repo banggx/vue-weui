@@ -1,0 +1,19 @@
+{
+  "name": "play",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.5.2",
+    "vite": "^5.0.10"
+  },
+  "dependencies": {
+    "vue-weui-component": "workspace:^"
+  }
+}

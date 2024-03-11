@@ -1,0 +1,28 @@
+{
+  "name": "vue-weui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "module": "es/index.mjs",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "es",
+    "lib"
+  ],
+  "keywords": [
+    "vue-weui",
+    "vue3"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "author": "mxchensir",
+  "license": "MIT",
+  "scripts": {
+    "release": "release-it"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  }
+}

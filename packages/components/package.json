@@ -1,0 +1,21 @@
+{
+  "name": "vue-weui-component",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "build": "vite build",
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@vitejs/plugin-vue-jsx": "^3.1.0",
+    "@vitest/coverage-v8": "^1.1.0"
+  },
+  "dependencies": {
+    "vue-weui-utils": "workspace:^"
+  }
+}

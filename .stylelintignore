@@ -1,0 +1,4 @@
+**.d.ts
+/packages/vue-weui
+dist
+node_modules
