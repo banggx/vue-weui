@@ -19,11 +19,11 @@ Before starting to use it, you need to introduce the weui style file into the ht
 Install component package.
 
 ```bash
-npm install vue-weui
+npm install vue-weui-next
 
 # or
 
-yarn install vue-weui
+yarn install vue-weui-next
 ```
 
 Complete introduction.
@@ -31,7 +31,7 @@ Complete introduction.
 ```ts
 import { createApp } from 'vue';
 import App from './App.vue';
-import Weui from 'vue-weui';
+import Weui from 'vue-weui-next';
 
 const app = createApp(App);
 app.use(Weui);
@@ -45,7 +45,7 @@ Manual import.
   <Button>button</Button>
 </template>
 <script>
-  import { Button } from 'vue-weui'
+  import { Button } from 'vue-weui-next'
   export default {
     components: { Button },
   }
