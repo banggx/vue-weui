@@ -7,6 +7,7 @@
 # vue-weui
 
 [![](https://shields.io/github/package-json/v/bangtz/vue-weui/master/packages/vue-weui)](https://github.com/bangtz/vue-weui/tree/master/packages/vue-weui)
+[![](https://pkg-size.dev/badge/bundle/68018)](https://pkg-size.dev/vue-weui-next)
 [![codecov](https://codecov.io/gh/bangtz/vue-weui/graph/badge.svg?token=6TNVSF7OYT)](https://codecov.io/gh/bangtz/vue-weui)
 [![](https://img.shields.io/badge/language-vue-orange.svg)](https://vuejs.org/)
 ![](https://img.shields.io/npm/l/vue-weui-next.svg)
