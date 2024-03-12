@@ -23,7 +23,7 @@ jobs:
         with:
           version: 7.2.1
       - name: Install modules
-        run: pnpm install
+        run: pnpm install && pnpm add vue-weui-utils@* --filter vue-weui-component
       - name: Run Test Coverage
         run: pnpm run coverage:weui
       - name: Upload coverage to Codecov
