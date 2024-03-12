@@ -1,5 +1,4 @@
 import DefaultTheme from 'vitepress/theme';
-import vueWeui from 'vue-weui-next';
 import DynamicLayout from '../components/DynamicLayout.vue'
 import Toast from '../components/Toast.vue';
 import ActionSheet from '../components/ActionSheet.vue';
@@ -20,7 +19,6 @@ export default {
         })
       },
     })
-    // app.use(vueWeui);
     app.component('custom-toast', Toast);
     app.component('custom-actionsheet', ActionSheet);
     app.component('custom-dialog', Dialog);
