@@ -31,8 +31,9 @@ jobs:
           version: 7.2.1
       - name: Install dependencies
         run: pnpm install
-      - name: Build
+      - name: Build weui
         run: pnpm run build:weui
+      - name: Build
         run: pnpm run docs:build
       - name: Setup Pages
         uses: actions/configure-pages@v3
