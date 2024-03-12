@@ -23,8 +23,6 @@ typings/
 # CodeRush
 .cr/
 
-
-
 ### macOS template
 # General
 .DS_Store
@@ -33,7 +31,6 @@ typings/
 
 # Thumbnails
 ._*
-
 
 =======
 # Local
@@ -48,5 +45,4 @@ cache
 es
 lib
 .vitepress
-.tmp
 coverage
