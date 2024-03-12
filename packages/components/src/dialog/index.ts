@@ -1,6 +1,6 @@
 import _Dialog from './dialog.vue';
 import { dialog } from './dialog';
-import { withInstall } from 'vue-weui-utils';
+import { withInstall } from '../utils';
 
 type DialogType = typeof _Dialog & {
   dialog: typeof dialog;

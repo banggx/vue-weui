@@ -1,6 +1,6 @@
 import _TabBar from './tabbar.vue';
 import _TabBarItem from './tabbarItem.vue';
-import { withInstall } from 'vue-weui-utils';
+import { withInstall } from '../utils';
 
 type TabBarType = typeof _TabBar & {
   TabBarItem: typeof _TabBarItem;

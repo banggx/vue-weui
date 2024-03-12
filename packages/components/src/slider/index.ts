@@ -1,5 +1,5 @@
 import _Slider from './slider.vue';
-import { withInstall } from 'vue-weui-utils';
+import { withInstall } from '../utils';
 
 export const Slider = withInstall(_Slider);
 export default Slider;

@@ -1,6 +1,6 @@
 import { h, render } from 'vue';
 import Dialog from './dialog.vue';
-import { shortid } from 'vue-weui-utils';
+import { shortid } from '../utils';
 
 interface DialogOptions {
   title?: string;

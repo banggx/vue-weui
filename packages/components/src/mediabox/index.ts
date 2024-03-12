@@ -1,5 +1,5 @@
 import _MediaBox from './mediabox.vue';
-import { withInstall } from 'vue-weui-utils';
+import { withInstall } from '../utils';
 
 export const MediaBox = withInstall(_MediaBox);
 export default MediaBox;

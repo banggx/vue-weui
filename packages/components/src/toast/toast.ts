@@ -1,6 +1,6 @@
 import { h, render } from 'vue';
 import Toast from './toast.vue';
-import { shortid } from 'vue-weui-utils';
+import { shortid } from '../utils';
 
 interface ToastOptions {
   text?: string;

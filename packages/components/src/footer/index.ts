@@ -1,6 +1,6 @@
 import _Footer from './footer.vue';
 import _FooterLink from './footerLink.vue';
-import { withInstall } from 'vue-weui-utils';
+import { withInstall } from '../utils';
 
 export const Footer = withInstall(_Footer);
 export const FooterLink = withInstall(_FooterLink);

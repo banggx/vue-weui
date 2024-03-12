@@ -21,7 +21,7 @@
 import { inject, computed } from 'vue';
 import { STEP_DIRECTION, ACTIVE_STEP, SET_ACTIVE_STEP } from './constant';
 import type { Ref } from 'vue';
-import type { Maybe } from 'vue-weui-utils';
+import type { Maybe } from '../types';
 
 defineOptions({
   name: 'weui-step-item'

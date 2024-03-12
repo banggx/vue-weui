@@ -1,6 +1,6 @@
 import _Steps from './steps.vue';
 import _StepItem from './stepItem.vue';
-import { withInstall } from 'vue-weui-utils';
+import { withInstall } from '../utils';
 
 type StepsType = typeof _Steps & {
   StepItem: typeof _StepItem;

@@ -69,7 +69,8 @@ export default defineConfig({
         '**/scripts/**',
         '**/*.d.ts',
         '**/index.ts',
-        '**/types.ts'
+        '**/types.ts',
+        '**/src/utils/**'
       ]
     }
   }

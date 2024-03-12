@@ -44,7 +44,7 @@
 <script lang="ts" setup>
 import { useVModel } from '@vueuse/core';
 import Mask from '../mask';
-import type { Maybe } from 'vue-weui-utils';
+import type { Maybe } from '../utils';
 
 defineOptions({
   name: 'weui-dialog'

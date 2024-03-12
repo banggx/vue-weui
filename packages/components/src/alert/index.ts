@@ -1,5 +1,5 @@
 import _Alert from './alert.vue';
-import { withInstall } from 'vue-weui-utils';
+import { withInstall } from '../utils';
 import { alert } from './alert';
 
 type AlertType = typeof _Alert & {

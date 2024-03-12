@@ -1,6 +1,6 @@
 import _NavBar from './navbar.vue';
 import _NavBarItem from './navbarItem.vue';
-import { withInstall } from 'vue-weui-utils';
+import { withInstall } from '../utils';
 
 type NavBarType = typeof _NavBar & {
   NavBarItem: typeof _NavBarItem;

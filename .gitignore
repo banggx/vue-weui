@@ -49,3 +49,4 @@ es
 lib
 .vitepress
 .tmp
+coverage

@@ -1,5 +1,5 @@
 import _Progress from './progress.vue';
-import { withInstall } from 'vue-weui-utils';
+import { withInstall } from '../utils';
 
 export const Progress = withInstall(_Progress);
 export default Progress;

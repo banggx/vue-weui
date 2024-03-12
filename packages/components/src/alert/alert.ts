@@ -1,6 +1,6 @@
 import { h, render } from 'vue';
 import Alert from './alert.vue';
-import { shortid } from 'vue-weui-utils';
+import { shortid } from '../utils';
 
 interface AlertOptions {
   text: string;

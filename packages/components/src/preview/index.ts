@@ -1,7 +1,7 @@
 import _Preview from './preview.vue';
 import _PreviewItem from './previewItem.vue';
 import _PreviewBtn from './previewBtn.vue';
-import { withInstall } from 'vue-weui-utils';
+import { withInstall } from '../utils';
 
 type PreviewType = typeof _Preview & {
   PreviewItem: typeof _PreviewItem;

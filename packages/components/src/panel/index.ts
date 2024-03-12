@@ -1,5 +1,5 @@
 import _Panel from './panel.vue';
-import { withInstall } from 'vue-weui-utils';
+import { withInstall } from '../utils';
 
 export const Panel = withInstall(_Panel);
 export default Panel;

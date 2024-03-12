@@ -152,10 +152,6 @@ importers:
         version: 2.4.2
 
   packages/components:
-    dependencies:
-      vue-weui-utils:
-        specifier: workspace:^
-        version: link:../utils
     devDependencies:
       '@vitejs/plugin-vue-jsx':
         specifier: ^3.1.0
@@ -163,8 +159,6 @@ importers:
       '@vitest/coverage-v8':
         specifier: ^1.1.0
         version: 1.1.0(vitest@1.1.0)
-
-  packages/utils: {}
 
   packages/vue-weui: {}
 
@@ -183,12 +177,9 @@ importers:
 
   site:
     dependencies:
-      vue-weui:
+      vue-weui-next:
         specifier: workspace:^
-        version: link:..
-      vue-weui-utils:
-        specifier: workspace:^
-        version: link:../packages/utils
+        version: link:../packages/vue-weui
     devDependencies:
       '@whyframe/core':
         specifier: ^0.1.10

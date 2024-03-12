@@ -13,7 +13,7 @@
 <script lang="ts" setup>
 import { inject } from 'vue';
 import { ACTIVE_TAB, NAVBAR_ITEM_NAME } from './constant';
-import type { Maybe } from 'vue-weui-utils';
+import type { Maybe } from '../types';
 
 defineOptions({
   name: NAVBAR_ITEM_NAME

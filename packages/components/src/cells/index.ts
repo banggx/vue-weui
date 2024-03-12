@@ -1,6 +1,6 @@
 import _Cells from './cells.vue';
 import _Cell from './cell.vue';
-import { withInstall } from 'vue-weui-utils';
+import { withInstall } from '../utils';
 
 type CellsType = typeof _Cells & {
   Cell: typeof _Cell;

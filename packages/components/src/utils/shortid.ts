@@ -1,4 +1,4 @@
-export default function shortid(length: number) {
+export function shortid(length: number) {
   const characters =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let result = '';

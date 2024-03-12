@@ -1,6 +1,6 @@
 import _Grids from './grids.vue';
 import _Grid from './grid.vue';
-import { withInstall } from 'vue-weui-utils';
+import { withInstall } from '../utils';
 
 export const Grids = withInstall(_Grids);
 export const Grid = withInstall(_Grid);

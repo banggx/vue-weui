@@ -1,6 +1,6 @@
 import _Toast from './toast.vue';
 import { toast } from './toast';
-import { withInstall } from 'vue-weui-utils';
+import { withInstall } from '../utils';
 
 type ToastType = typeof _Toast & {
   toast: typeof toast;

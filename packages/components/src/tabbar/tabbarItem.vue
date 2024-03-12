@@ -13,7 +13,7 @@
 <script lang="ts" setup generic="T = any">
 import { inject } from 'vue';
 import { ACTIVE_TAB, TABBAR_ITEM_NAME } from './constant';
-import { Maybe } from 'vue-weui-utils';
+import { Maybe } from '../types';
 
 defineOptions({
   name: TABBAR_ITEM_NAME

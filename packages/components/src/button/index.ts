@@ -1,5 +1,5 @@
 import _Button from './button.vue';
-import { withInstall } from 'vue-weui-utils';
+import { withInstall } from '../utils';
 
 export const Button = withInstall(_Button);
 export default Button;

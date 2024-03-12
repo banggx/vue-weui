@@ -20,7 +20,6 @@
     "vue": "^3.3.13"
   },
   "dependencies": {
-    "vue-weui": "workspace:^",
-    "vue-weui-utils": "workspace:^"
+    "vue-weui-next": "workspace:^"
   }
 }

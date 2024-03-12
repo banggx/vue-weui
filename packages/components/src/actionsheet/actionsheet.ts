@@ -1,6 +1,6 @@
 import { h, render } from 'vue';
 import ActionSheet from './actionsheet.vue';
-import { shortid } from 'vue-weui-utils';
+import { shortid } from '../utils';
 import type { ActionSheetMenuOrActions } from './types';
 
 interface ActionSheetOptions {
