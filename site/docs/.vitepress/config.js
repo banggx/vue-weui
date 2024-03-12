@@ -2,7 +2,7 @@ import { whyframe } from '@whyframe/core'
 import { whyframeVue } from '@whyframe/vue'
 
 export default {
-  base: process.env.NODE_ENV === 'production' ? '/vue-weui' : '/',
+  base: '/vue-weui',
   vite: {
     plugins: [
       whyframe({
