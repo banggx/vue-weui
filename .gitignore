@@ -44,5 +44,4 @@ yarn-error.log
 cache
 es
 lib
-.vitepress
 coverage
