@@ -17,7 +17,7 @@
     "**/*.css"
   ],
   "author": "mxchensir",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "scripts": {
     "release": "release-it"
   },

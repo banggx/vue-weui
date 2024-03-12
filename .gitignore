@@ -48,3 +48,4 @@ cache
 es
 lib
 .vitepress
+.tmp
