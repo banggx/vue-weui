@@ -8,6 +8,7 @@ module.exports = {
     'stylelint-prettier/recommended'
   ],
   rules: {
-    'prettier/prettier': true
+    'prettier/prettier': true,
+    "custom-property-pattern": null,
   }
 };

@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
 import Slider from '../slider.vue';
-import { nextTick } from 'vue';
 
 describe('weui-slider', () => {
   it('render slider percent', () => {

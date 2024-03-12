@@ -158,7 +158,7 @@
 
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue';
-import { Toast, ActionSheet, Dialog, Alert } from 'vue-weui-component';
+// import { Toast, ActionSheet, Dialog, Alert } from 'vue-weui-component';
 
 const sliderVal = ref(0);
 const badgeVal = ref(20);
