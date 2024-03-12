@@ -15,7 +15,10 @@ hero:
       link: https://weui.io/
     - theme: alt
       text: GitHub
-      link: 
+      link: https://github.com/bangtz/vue-weui
+  image:
+    src: https://raw.githubusercontent.com/bangtz/vue-weui/main/vue-weui.png
+    alt: vue-weui
 
 features:
   - icon: 💡
