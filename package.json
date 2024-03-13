@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "husky",
     "preinstall": "npx only-allow pnpm",
     "test:weui": "pnpm run --filter vue-weui-component test",
     "coverage:weui": "pnpm run --filter vue-weui-component coverage",
