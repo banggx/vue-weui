@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
-import MediaBox from '../mediabox.vue';
+import MediaBox from '../mediaBox.vue';
 
 describe('weui-media-box', () => {
   it('render props type', () => {

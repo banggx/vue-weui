@@ -56,7 +56,8 @@
     "vite": "^5.0.10",
     "vite-plugin-dts": "1.4.1",
     "vitest": "^1.1.0",
-    "vue": "^3.2.36"
+    "vue": "^3.2.36",
+    "vue-tsc": "^2.0.6"
   },
   "dependencies": {
     "@vueuse/core": "^10.7.0",

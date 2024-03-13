@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { actionSheet } from '../actionsheet';
+import { actionSheet } from '../actionSheet';
 
 describe('weui-action-sheet-fn', () => {
   it('actionSheet api mount', () => {

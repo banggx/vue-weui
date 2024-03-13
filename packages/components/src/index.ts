@@ -19,7 +19,7 @@ export * from './steps';
 export * from './mask';
 export * from './actionsheet';
 export * from './dialog';
-export * from './halfscreen-dialog';
+export * from './halfScreenDialog';
 export * from './msg';
 export * from './alert';
 export * from './navbar';

@@ -1,5 +1,5 @@
-import _ActionSheet from './actionsheet.vue';
-import { actionSheet } from './actionsheet';
+import _ActionSheet from './actionSheet.vue';
+import { actionSheet } from './actionSheet';
 import { withInstall } from '../utils';
 
 type ActionSheetType = typeof _ActionSheet & {

@@ -1,5 +1,5 @@
 import { h, render } from 'vue';
-import ActionSheet from './actionsheet.vue';
+import ActionSheet from './actionSheet.vue';
 import { shortid } from '../utils';
 import type { ActionSheetMenuOrActions } from './types';
 

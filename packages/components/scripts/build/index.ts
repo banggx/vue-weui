@@ -6,6 +6,7 @@ import path from 'path';
 import delPath from '../utils/delpath';
 import { pkgPath, componentPath, rootPath } from '../utils/paths';
 import run from '../utils/run';
+import { toPascalCase } from '../utils/tools';
 
 // 删除打包目录
 export const removeDist = () => {
@@ -19,6 +20,35 @@ export const buildStyle = () => {
     .pipe(autoPrefixer())
     .pipe(dest(`${pkgPath}/vue-weui/lib/src`))
     .pipe(dest(`${pkgPath}/vue-weui/es/src`));
+};
+
+// 生成volar类型提示文件
+export const buildVolarTs = () => {
+  const sourcePath = path.resolve(componentPath, 'src');
+  const components = fse
+    .readdirSync(sourcePath)
+    .filter(
+      (dir: string) =>
+        !dir.startsWith('.') &&
+        fse.statSync(path.resolve(sourcePath, dir)).isDirectory()
+    )
+    .reduce<string[]>((components: string[], dir: string) => {
+      const files = fse.readdirSync(path.resolve(sourcePath, dir));
+      const componentsFile = files
+        .filter((file: string) => file.endsWith('.vue'))
+        .map((file: string) => toPascalCase(file.replace('.vue', '')));
+      components.push(...componentsFile);
+      return components;
+    }, []);
+  const volarGlobalTs = `declare module '@vue/runtime-core' {\n\texport interface GlobalComponents {\n${components
+    .map((comp: string) => {
+      return `\t\tweui${comp}: typeof import('vue-weui-next')['${comp}'];`;
+    })
+    .join('\n')}\n\t}\n}\nexport {};`;
+  const volarGlobalDir = path.resolve(pkgPath, 'vue-weui/typings');
+  fse.ensureDirSync(volarGlobalDir);
+  fse.emptyDirSync(volarGlobalDir);
+  fse.writeFileSync(path.resolve(volarGlobalDir, 'global.d.ts'), volarGlobalTs);
 };
 
 export const moveToReadme = () => {
@@ -43,6 +73,7 @@ export default series(
   parallel(
     async () => buildStyle(),
     async () => buildComponent(),
+    async () => buildVolarTs(),
     async () => moveToReadme()
   )
 );

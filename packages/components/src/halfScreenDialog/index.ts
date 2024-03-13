@@ -1,4 +1,4 @@
-import _HalfScreenDialoga from './halfscreenDialog.vue';
+import _HalfScreenDialoga from './halfScreenDialog.vue';
 import { withInstall } from '../utils';
 
 export const HalfScreenDialog = withInstall(_HalfScreenDialoga);

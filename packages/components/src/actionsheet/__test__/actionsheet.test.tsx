@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
-import ActionSheet from '../actionsheet.vue';
+import ActionSheet from '../actionSheet.vue';
 
 describe('weui-action-sheet', () => {
   it('render actionsheet props', () => {

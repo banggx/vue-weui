@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
-import HalfScreenDialog from '../halfscreenDialog.vue';
+import HalfScreenDialog from '../halfScreenDialog.vue';
 
 describe('weui-half-screen-dialog', () => {
   it('render showClose props', () => {
