@@ -1,11 +1,11 @@
-import _NavBar from './navbar.vue';
-import _NavBarItem from './navbarItem.vue';
+import _Navbar from './navbar.vue';
+import _NavbarItem from './navbarItem.vue';
 import { withInstall } from '../utils';
 
-type NavBarType = typeof _NavBar & {
-  NavBarItem: typeof _NavBarItem;
+type NavBarType = typeof _Navbar & {
+  NavbarItem: typeof _NavbarItem;
 };
-export const NavBar = withInstall<NavBarType>(_NavBar as NavBarType);
-export const NavBarItem = withInstall(_NavBarItem);
-NavBar.NavBarItem = NavBarItem;
-export default NavBar;
+export const Navbar = withInstall<NavBarType>(_Navbar as NavBarType);
+export const NavbarItem = withInstall(_NavbarItem);
+Navbar.NavbarItem = NavbarItem;
+export default Navbar;
