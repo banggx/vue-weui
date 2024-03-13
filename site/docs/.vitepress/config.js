@@ -31,12 +31,8 @@ export default {
           text: '基础',
           items: [
             {
-              text: '安装',
-              link: '/guide/index',
-            },
-            {
               text: '快速开始',
-              link: '/guide/quickstart'
+              link: '/guide/index'
             }
           ]
         }
