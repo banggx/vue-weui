@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prepare": "husky install",
+    "preinstall": "npx only-allow pnpm",
     "test:weui": "pnpm run --filter vue-weui-component test",
     "coverage:weui": "pnpm run --filter vue-weui-component coverage",
     "docs:dev": "pnpm run --filter site docs:dev",
@@ -17,6 +19,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@commitlint/cli": "^19.1.0",
+    "@commitlint/config-conventional": "^19.1.0",
     "@types/fs-extra": "^11.0.4",
     "@types/gulp": "^4.0.17",
     "@types/gulp-autoprefixer": "^0.0.37",
@@ -38,6 +42,7 @@
     "gulp-autoprefixer": "^8.0.0",
     "gulp-less": "^5.0.0",
     "happy-dom": "^12.10.3",
+    "husky": "^9.0.11",
     "less": "^4.2.0",
     "postcss-html": "^1.5.0",
     "postcss-less": "^6.0.0",
