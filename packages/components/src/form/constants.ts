@@ -1,0 +1,5 @@
+export const REGISTER_NAME_LIST = Symbol('REGISTER_NAME_LIST');
+export const REGISTER_RULE = Symbol('REGISTER_RULE');
+export const VALIDATE_ERRORS = Symbol('VALIDATE_ERRORS');
+export const REMOVE_VALIDATE_ERROR = Symbol('REMOVE_VALIDATE_ERROR');
+export const FORM_MODEL_DATA = Symbol('FORM_MODEL_DATA');

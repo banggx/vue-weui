@@ -10,5 +10,6 @@ module.exports = {
   rules: {
     'prettier/prettier': true,
     "custom-property-pattern": null,
+    "selector-class-pattern": "^[a-z][a-z0-9_-]+$",
   }
 };

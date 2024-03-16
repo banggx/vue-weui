@@ -22,7 +22,7 @@ withDefaults(
   defineProps<{
     label: string;
     value: T;
-    icon: string;
+    icon?: string;
   }>(),
   {}
 );

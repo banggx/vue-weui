@@ -37,6 +37,10 @@ declare module '@vue/runtime-core' {
     weuiTabbar: typeof components.TabBar;
     weuiTabbarItem: typeof components.TabBarItem;
     weuiSearchbar: typeof components.SearchaBar;
+    weuiForm: typeof components.Form;
+    weuiFormGroup: typeof components.FormGroup;
+    weuiFormItem: typeof components.FormItem;
+    weuiInput: typeof components.Input;
   }
 }
 export {};

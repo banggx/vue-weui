@@ -12,7 +12,12 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/lodash": "^4.17.0",
     "@vitejs/plugin-vue-jsx": "^3.1.0",
     "@vitest/coverage-v8": "^1.1.0"
+  },
+  "dependencies": {
+    "async-validator": "^4.2.5",
+    "lodash": "^4.17.21"
   }
 }

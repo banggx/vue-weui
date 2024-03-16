@@ -123,7 +123,7 @@
     <template #extra-area> 底部链接区域 </template>
   </weui-msg>
 
-  <weui-button @click="visiblePicker = true">打开Picker</weui-button>
+  <weui-button @click="formRef?.resetFields()">打开Picker</weui-button>
   <weui-alert
     v-model="visiblePicker"
     type="default"
@@ -154,11 +154,31 @@
   </weui-tabbar>
 
   <weui-searchbar v-model="searchKey"></weui-searchbar>
+
+  <weui-form ref="formRef" :model="formData">
+    <weui-form-group title="表单信息">
+      <weui-form-item label="测试测试" name="name" :rule="rules.name">
+        <weui-input
+          v-model="formData.name"
+          placeholder="请输入内容"
+          allow-clear
+          disabled
+        ></weui-input>
+      </weui-form-item>
+    </weui-form-group>
+  </weui-form>
 </template>
 
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue';
-// import { Toast, ActionSheet, Dialog, Alert } from 'vue-weui-component';
+import {
+  // Toast,
+  // ActionSheet,
+  // Dialog,
+  // Alert,
+  FormInstance,
+  Rules
+} from 'vue-weui-component';
 
 const sliderVal = ref(0);
 const badgeVal = ref(20);
@@ -170,6 +190,21 @@ const visibleHalf = ref(false);
 const visiblePicker = ref(false);
 const navBar = ref('menu1');
 const searchKey = ref('');
+
+const formData = ref({ name: 'xxxde' });
+const formRef = ref<FormInstance>();
+const rules: Rules = {
+  name: [
+    {
+      type: 'string',
+      message: '必填项'
+    },
+    {
+      len: 5,
+      message: '不能大于100'
+    }
+  ]
+};
 
 const menus = [
   { label: '菜单1', id: 1 },
@@ -227,6 +262,10 @@ onMounted(() => {
   //   duration: 0,
   //   type: 'warn-primary'
   // });
+
+  formRef.value?.validate().then((res) => {
+    console.log(res);
+  });
 });
 </script>
 

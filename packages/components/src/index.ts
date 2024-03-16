@@ -25,3 +25,5 @@ export * from './alert';
 export * from './navbar';
 export * from './tabbar';
 export * from './searchbar';
+export * from './form';
+export * from './input';

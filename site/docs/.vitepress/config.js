@@ -108,6 +108,19 @@ export default {
           ]
         },
         {
+          text: '表单组件',
+          items: [
+            {
+              text: 'Form',
+              link: '/components/form/'
+            },
+            {
+              text: 'Input',
+              link: '/components/input/'
+            },
+          ]
+        },
+        {
           text: '操作反馈',
           items: [
             {

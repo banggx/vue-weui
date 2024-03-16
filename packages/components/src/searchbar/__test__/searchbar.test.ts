@@ -15,6 +15,19 @@ describe('weui-searchbar', () => {
     ).toBe('search');
   });
 
+  it('input searchbar', () => {
+    const wrapper = mount(SearchBar, {
+      props: {
+        modelValue: 'search'
+      }
+    });
+    wrapper.find('.weui-search-bar__input').setValue('new search');
+    expect(
+      (wrapper.find('.weui-search-bar__input').element as HTMLInputElement)
+        .value
+    ).toBe('new search');
+  });
+
   it('render searchbar clear', async () => {
     const wrapper = mount(SearchBar, {
       props: {
