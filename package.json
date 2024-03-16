@@ -6,6 +6,7 @@
   "scripts": {
     "prepare": "husky",
     "preinstall": "npx only-allow pnpm",
+    "dev": "pnpm run --filter play dev",
     "test:weui": "pnpm run --filter vue-weui-component test",
     "coverage:weui": "pnpm run --filter vue-weui-component coverage",
     "docs:dev": "pnpm run --filter site docs:dev",
