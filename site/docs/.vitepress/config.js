@@ -118,6 +118,10 @@ export default {
               text: 'Input',
               link: '/components/input/'
             },
+            {
+              text: 'Picker',
+              link: '/components/picker/'
+            },
           ]
         },
         {

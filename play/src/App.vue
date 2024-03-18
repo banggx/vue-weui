@@ -158,12 +158,12 @@
   <weui-form ref="formRef" :model="formData">
     <weui-form-group title="表单信息">
       <weui-form-item label="测试测试" name="name" :rule="rules.name">
-        <weui-input
-          v-model="formData.name"
+        <weui-picker
+          v-model="formData.picker"
+          :options="pickerOptions"
           placeholder="请输入内容"
           allow-clear
-          disabled
-        ></weui-input>
+        ></weui-picker>
       </weui-form-item>
     </weui-form-group>
   </weui-form>
@@ -191,7 +191,7 @@ const visiblePicker = ref(false);
 const navBar = ref('menu1');
 const searchKey = ref('');
 
-const formData = ref({ name: 'xxxde' });
+const formData = ref({ name: 'xxxde', picker: 1 });
 const formRef = ref<FormInstance>();
 const rules: Rules = {
   name: [
@@ -225,13 +225,13 @@ const navBars = ref([
   }
 ]);
 
-// const pickerOptions = [
-//   { label: 'label1', value: 1 },
-//   { label: 'label2', value: 2 },
-//   { label: 'label3', value: 3 },
-//   { label: 'label4', value: 4 },
-//   { label: 'label5', value: 5 }
-// ];
+const pickerOptions = [
+  { label: 'label1', value: 1, disabled: true },
+  { label: 'label2', value: 2 },
+  { label: 'label3', value: 3 },
+  { label: 'label4', value: 4 },
+  { label: 'label5', value: 5 }
+];
 
 onMounted(() => {
   // Toast.toast({

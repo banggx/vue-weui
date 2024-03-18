@@ -41,6 +41,7 @@ declare module '@vue/runtime-core' {
     weuiFormGroup: typeof components.FormGroup;
     weuiFormItem: typeof components.FormItem;
     weuiInput: typeof components.Input;
+    weuiPicker: typeof components.Picker;
   }
 }
 export {};

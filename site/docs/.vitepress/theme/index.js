@@ -8,7 +8,7 @@ import Alert from '../components/Alert.vue';
 import NavBar from '../components/NavBar.vue';
 import TabBar from '../components/TabBar.vue';
 import ValidateForm from '../components/ValidateForm.vue';
-
+import Picker from '../components/Picker.vue';
 
 export default {
   ...DefaultTheme,
@@ -29,5 +29,6 @@ export default {
     app.component('custom-navbar', NavBar);
     app.component('custom-tabbar', TabBar);
     app.component('custom-validate-form', ValidateForm);
+    app.component('custom-picker', Picker);
   },
 };
