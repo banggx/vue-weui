@@ -36,14 +36,18 @@ const pickerOptions = [
 |  名称   | 类型  | 默认值 | 说明 | 版本 |
 |  ----  | ----  | ----- | ---- | ----- |
 | modelValue  | any | - | 选择器的值 | - | 
-| options  | {label: string; value: any; disabled?: boolean}[] | [] | 选择项 | - |
+| options  | PickerItem\<T\>[] | PickerItem\<T\>[][]; | [] | 选择项 | - |
 | disabled | boolean | false | 选择器是否禁用 | - |
 | placeholder | string | - | 默认占位提示 | - |
+| isMulti | boolean | - | 是否多列选择器 | - |
+| delimiter | string | '/' | 多列选择值分割符 | - |
+| confirmText | string | '确定' | 选择器确认按钮 | - |
+| title | string | - | 选择器标题 | - |
+| desc | string | - | 选择器描述 | - |
 
 #### Picker Events
 |  名称   | 描述  | 参数 | 版本 |
 |  ----  | ----  | ----- | ---- |
-| update:modelValue  | 选择器选择值变更时回调 | (val: T) => void | - |
-| selectChange  | 选择器选择值改变时回调 | (val: {label: string; value: any; disabled?: boolean}) => void | - |
-| change  | 选择器选择值确认时回调 | (val: {label: string; value: any; disabled?: boolean}) => void | - |
-
+| update:modelValue  | 选择器选择值变更时回调 | ((val: T \| T[]) => void) | - |
+| selectChange  | 选择器选择值改变时回调 | ((val: PickerItem\<T\>[] \| PickerItem\<T\>) => void) | - |
+| change  | 选择器选择值确认时回调 | ((val: PickerItem\<T\>[] \| PickerItem\<T\>) => void) | - |

@@ -59,4 +59,80 @@ describe('weui-picker', () => {
 
     wrapper.trigger('click');
   });
+
+  it('render multi picker', async () => {
+    const pickerOptions = [
+      { label: 'label1', value: 1, children: [{ label: 'child1', value: 3 }] },
+      { label: 'label2', value: 2, children: [{ label: 'child1', value: 4 }] }
+    ];
+    const wrapper = mount(Picker, {
+      props: {
+        modelValue: [1, 3],
+        placeholder: 'placeholder',
+        options: pickerOptions,
+        isMulti: true
+      }
+    });
+    expect(wrapper.find('.weui-select').text()).toBe('label1/child1');
+    wrapper.trigger('click');
+    await wrapper.vm.$nextTick();
+    expect(document.querySelector('.weui-picker-selector')).not.toBeNull();
+    const pickerGroup = document.querySelector(
+      '.weui-picker-selector .weui-picker__group'
+    );
+    if (pickerGroup) {
+      pickerGroup.scrollTop = 56;
+      pickerGroup.dispatchEvent(new Event('scroll'));
+      await wrapper.vm.$nextTick();
+      // 触发confirm事件
+      const confirmBtn = document.querySelector(
+        '.weui-picker-selector .weui-picker__btn'
+      );
+      confirmBtn?.dispatchEvent(new Event('click'));
+    }
+  });
+
+  it('render array multi picker', async () => {
+    const pickerOptions = [
+      [
+        { label: 'label1', value: 1 },
+        { label: 'label2', value: 2 }
+      ],
+      [
+        { label: 'child1', value: 3 },
+        { label: 'child1', value: 4 }
+      ]
+    ];
+    const wrapper = mount(Picker, {
+      props: {
+        modelValue: [1, 5],
+        placeholder: 'placeholder',
+        options: pickerOptions,
+        isMulti: true
+      }
+    });
+    expect(wrapper.find('.weui-select').text()).toBe('label1');
+  });
+
+  it('render single picker with array options', async () => {
+    const pickerOptions = [
+      [
+        { label: 'label1', value: 1 },
+        { label: 'label2', value: 2 }
+      ],
+      [
+        { label: 'child1', value: 3 },
+        { label: 'child1', value: 4 }
+      ]
+    ];
+    const wrapper = mount(Picker, {
+      props: {
+        modelValue: 1,
+        placeholder: 'placeholder',
+        options: pickerOptions,
+        isMulti: false
+      }
+    });
+    expect(wrapper.find('.weui-select').text()).toBe('label1');
+  });
 });
