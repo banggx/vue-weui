@@ -158,13 +158,26 @@
   <weui-form ref="formRef" :model="formData">
     <weui-form-group title="表单信息">
       <weui-form-item label="测试测试" name="name" :rule="rules.name">
+        <weui-input
+          v-model="formData.name"
+          placeholder="请输入内容"
+          allow-clear
+        ></weui-input>
+      </weui-form-item>
+      <weui-form-item label="选择器" name="picker">
         <weui-picker
           v-model="formData.picker"
           :options="pickerOptions"
           placeholder="请输入内容"
-          allow-clear
           :is-multi="true"
         ></weui-picker>
+      </weui-form-item>
+      <weui-form-item label="日期" name="date">
+        <weui-date-picker
+          v-model="formData.date"
+          placeholder="请选择日期内容"
+          cron="1-10 * *"
+        ></weui-date-picker>
       </weui-form-item>
     </weui-form-group>
   </weui-form>
@@ -192,7 +205,11 @@ const visiblePicker = ref(false);
 const navBar = ref('menu1');
 const searchKey = ref('');
 
-const formData = ref({ name: 'xxxde', picker: [1] });
+const formData = ref({
+  name: undefined,
+  picker: undefined,
+  date: undefined
+});
 const formRef = ref<FormInstance>();
 const rules: Rules = {
   name: [

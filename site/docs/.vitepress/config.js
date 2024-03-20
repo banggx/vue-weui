@@ -122,6 +122,10 @@ export default {
               text: 'Picker',
               link: '/components/picker/'
             },
+            {
+              text: 'DatePicker',
+              link: '/components/datePicker/'
+            },
           ]
         },
         {

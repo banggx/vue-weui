@@ -9,6 +9,8 @@ import NavBar from '../components/NavBar.vue';
 import TabBar from '../components/TabBar.vue';
 import ValidateForm from '../components/ValidateForm.vue';
 import Picker from '../components/Picker.vue';
+import DatePicker from '../components/DatePicker.vue';
+
 
 export default {
   ...DefaultTheme,
@@ -30,5 +32,6 @@ export default {
     app.component('custom-tabbar', TabBar);
     app.component('custom-validate-form', ValidateForm);
     app.component('custom-picker', Picker);
+    app.component('custom-date-picker', DatePicker);
   },
 };

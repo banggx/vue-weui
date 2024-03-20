@@ -60,7 +60,7 @@ const valueLabel = computed(() => {
     ? props.options[currentIndex]
     : props.options;
   const result: string[] = [];
-  while (currentIndex <= (value.value as Array<T>).length && nextOptions) {
+  while (currentIndex <= (value.value as Array<T>)?.length && nextOptions) {
     const currentOption = (nextOptions as PickerItem<T>[]).find(
       (item) => item.value === (value.value as T[])[currentIndex]
     );
@@ -76,7 +76,8 @@ const valueLabel = computed(() => {
   return result.join(props.delimiter);
 });
 const classnames = computed(() => ({
-  'weui-picker_diabled': props.disabled
+  'weui-picker_diabled': props.disabled,
+  'weui-picker_placeholder': !value.value
 }));
 
 const pickerSelector = () => {
