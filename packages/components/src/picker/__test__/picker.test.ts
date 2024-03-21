@@ -134,5 +134,6 @@ describe('weui-picker', () => {
       }
     });
     expect(wrapper.find('.weui-select').text()).toBe('label1');
+    wrapper.trigger('click');
   });
 });

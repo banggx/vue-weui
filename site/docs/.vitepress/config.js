@@ -50,10 +50,6 @@ export default {
               link: '/components/button/'
             },
             {
-              text: 'Slider',
-              link: '/components/slider/'
-            },
-            {
               text: 'Loading',
               link: '/components/loading/'
             },
@@ -125,6 +121,14 @@ export default {
             {
               text: 'DatePicker',
               link: '/components/datePicker/'
+            },
+            {
+              text: 'TimePicker',
+              link: '/components/timePicker/'
+            },
+            {
+              text: 'Slider',
+              link: '/components/slider/'
             },
           ]
         },

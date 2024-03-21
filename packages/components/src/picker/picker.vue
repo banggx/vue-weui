@@ -82,7 +82,10 @@ const classnames = computed(() => ({
 
 const pickerSelector = () => {
   if (props.disabled) return;
-  weui.picker(props.options, {
+  const pickerOptions = Array.isArray(props.options[0])
+    ? props.options
+    : [props.options];
+  weui.picker(...pickerOptions, {
     className: 'weui-picker-selector',
     container: 'body',
     defaultValue: [value.value],

@@ -32,7 +32,7 @@ const pickerDate = ref(Date());
 | end  | Date \| number \| string \| Dayjs | 2030-1-1 | 结束 | - |
 | placeholder | string | - | 占位文案 | - |
 | disabled | boolean | false | 是否禁用 | - |
-| formmatter | string |'YYYY-MM-DD' | 格式化字符串 | - |
+| formatter | string |'YYYY-MM-DD' | 格式化字符串 | - |
 | cron | string |'* * *' | cron 表达式，三位，分别是 dayOfMonth[1-31]，month[1-12] 和 dayOfWeek[0-6]（周日-周六） | - |
 
 

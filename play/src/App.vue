@@ -179,6 +179,13 @@
           cron="1-10 * *"
         ></weui-date-picker>
       </weui-form-item>
+      <weui-form-item label="时间" name="time">
+        <weui-time-picker
+          v-model="formData.date"
+          placeholder="请选择时间"
+          cron="* * *"
+        ></weui-time-picker>
+      </weui-form-item>
     </weui-form-group>
   </weui-form>
 </template>
@@ -208,7 +215,8 @@ const searchKey = ref('');
 const formData = ref({
   name: undefined,
   picker: undefined,
-  date: undefined
+  date: undefined,
+  time: undefined
 });
 const formRef = ref<FormInstance>();
 const rules: Rules = {

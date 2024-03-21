@@ -43,6 +43,7 @@ declare module '@vue/runtime-core' {
     weuiInput: typeof components.Input;
     weuiPicker: typeof components.Picker;
     weuiDatePicker: typeof components.DatePicker;
+    weuiTimePicker: typeof components.TimePicker;
   }
 }
 export {};

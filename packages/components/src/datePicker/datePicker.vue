@@ -9,7 +9,7 @@
   </div>
 </template>
 
-<script lang="ts" setup generic="R extends boolean, T = any">
+<script lang="ts" setup>
 import { computed } from 'vue';
 import { Icon } from '../icon';
 import { useVModel } from '@vueuse/core';
@@ -40,7 +40,7 @@ const props = withDefaults(
   }
 );
 const emit = defineEmits<{
-  (type: 'update:modelValue', val: T | T[]): void;
+  (type: 'update:modelValue', val: Date | Dayjs): void;
   (type: 'selectChange', val: Dayjs): void;
   (type: 'change', val: Dayjs): void;
 }>();

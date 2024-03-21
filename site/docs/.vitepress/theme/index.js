@@ -10,7 +10,7 @@ import TabBar from '../components/TabBar.vue';
 import ValidateForm from '../components/ValidateForm.vue';
 import Picker from '../components/Picker.vue';
 import DatePicker from '../components/DatePicker.vue';
-
+import TimePicker from '../components/TimePicker.vue';
 
 export default {
   ...DefaultTheme,
@@ -33,5 +33,6 @@ export default {
     app.component('custom-validate-form', ValidateForm);
     app.component('custom-picker', Picker);
     app.component('custom-date-picker', DatePicker);
+    app.component('custom-time-picker', TimePicker);
   },
 };
