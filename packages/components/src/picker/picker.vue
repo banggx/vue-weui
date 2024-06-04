@@ -77,7 +77,7 @@ const valueLabel = computed(() => {
 });
 const classnames = computed(() => ({
   'weui-picker_diabled': props.disabled,
-  'weui-picker_placeholder': !value.value
+  'weui-picker_placeholder': !valueLabel.value
 }));
 
 const pickerSelector = () => {
