@@ -9,7 +9,7 @@
   </div>
 </template>
 
-<script lang="ts" setup generic="R extends boolean, T = any">
+<script lang="ts" setup generic="R extends boolean = false, T = any">
 import { computed } from 'vue';
 import { Icon } from '../icon';
 import { useVModel } from '@vueuse/core';
