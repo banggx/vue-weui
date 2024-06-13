@@ -162,7 +162,20 @@
           v-model="formData.name"
           placeholder="请输入内容"
           allow-clear
+          disabled="true"
         ></weui-input>
+      </weui-form-item>
+      <weui-form-item label="开关" name="switch">
+        <weui-switch v-model="formData.switch" disabled></weui-switch>
+      </weui-form-item>
+      <weui-form-item label="测试测试" name="name" :rule="rules.name">
+        <weui-textarea
+          v-model="formData.text"
+          placeholder="请输入内容"
+          :maxlength="100"
+          :showNum="true"
+          disabled="true"
+        ></weui-textarea>
       </weui-form-item>
       <weui-form-item label="选择器" name="picker">
         <weui-picker
@@ -214,6 +227,8 @@ const searchKey = ref('');
 
 const formData = ref({
   name: undefined,
+  text: '',
+  switch: false,
   picker: undefined,
   date: undefined,
   time: undefined

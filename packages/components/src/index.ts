@@ -30,3 +30,5 @@ export * from './input';
 export * from './picker';
 export * from './datePicker';
 export * from './timePicker';
+export * from './textarea';
+export * from './switch';

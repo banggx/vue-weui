@@ -13,7 +13,7 @@ describe('weui-date-picker', () => {
         end: new Date('2025-1-1')
       }
     });
-    expect(wrapper.find('.weui-select').text()).toBe('placeholder');
+    expect(wrapper.find('.weui-date-value').text()).toBe('placeholder');
 
     // 触发打开选择器
     wrapper.trigger('click');
@@ -47,7 +47,7 @@ describe('weui-date-picker', () => {
         disabled: true
       }
     });
-    expect(wrapper.find('.weui-select').text()).toBe(
+    expect(wrapper.find('.weui-date-value').text()).toBe(
       dayjs().format('YYYY-MM-DD')
     );
     expect(wrapper.classes()).toContain('weui-picker_diabled');
@@ -63,7 +63,7 @@ describe('weui-date-picker', () => {
         formatter: 'YYYY年MM月DD日'
       }
     });
-    expect(wrapper.find('.weui-select').text()).toBe(
+    expect(wrapper.find('.weui-date-value').text()).toBe(
       dayjs().format('YYYY年MM月DD日')
     );
   });

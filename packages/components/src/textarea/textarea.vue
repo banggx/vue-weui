@@ -1,45 +1,44 @@
 <template>
-  <div class="weui-input-wrapper weui-flex" :class="classnames">
-    <input
-      class="weui-input"
+  <div class="weui-textarea-wrapper" :class="classnames">
+    <textarea
+      class="weui-textarea"
       :value="value"
-      :type="type"
       :placeholder="placeholder"
+      :maxlength="maxlength"
       :disabled="disabled"
       @input="setInputValue"
     />
-    <button
-      v-if="allowClear && value"
-      id="js_input_clear"
-      class="weui-btn_reset weui-btn_icon weui-btn_input-clear"
-      wah-hotarea="click"
-      @click="clearValue"
+    <div
+      v-if="maxlength && showNum"
+      role="option"
+      aria-live="polite"
+      class="weui-textarea-counter"
     >
-      <i class="weui-icon-clear"></i>
-    </button>
+      <span>{{ value?.length }}</span
+      >/{{ maxlength }}
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { computed } from 'vue';
 import { useVModel } from '@vueuse/core';
-import './input.less';
+import './textarea.less';
 
 defineOptions({
-  name: 'weui-input'
+  name: 'weui-textarea'
 });
 const props = withDefaults(
   defineProps<{
     modelValue?: string;
-    type?: 'text' | 'password' | 'url' | 'tel';
     placeholder?: string;
-    allowClear?: boolean;
     disabled?: boolean;
+    maxlength?: number;
+    showNum?: boolean;
   }>(),
   {
-    type: 'text',
-    allowClear: false,
-    disabled: false
+    disabled: false,
+    showNum: false
   }
 );
 const emit = defineEmits<{
@@ -55,9 +54,5 @@ const setInputValue = (ev: Event) => {
   const targetValue = (ev.target as HTMLInputElement).value;
   value.value = targetValue;
   emit('change', targetValue);
-};
-const clearValue = () => {
-  value.value = '';
-  emit('change', '');
 };
 </script>

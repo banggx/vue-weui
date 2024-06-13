@@ -4,7 +4,7 @@
     :class="classnames"
     @click="pickerSelector"
   >
-    <div class="weui-select">{{ valueLabel }}</div>
+    <div class="weui-time-value">{{ valueLabel }}</div>
     <Icon type="arrow" />
   </div>
 </template>

@@ -173,6 +173,7 @@ const submitForm = () => {
 | name  | string | - | 字段名称 | - |
 | label  | string | - | 字段描述 | - | 
 | rule  | Rule | - | 字段校验规则 | - | 
+| vertical | boolean | false | 是否垂直排列 | - | 
 
 #### FormItem Slots
 |  名称   | 参数  | 说明 | 版本 |

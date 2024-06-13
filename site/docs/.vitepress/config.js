@@ -115,6 +115,10 @@ export default {
               link: '/components/input/'
             },
             {
+              text: 'Textarea',
+              link: '/components/textarea/'
+            },
+            {
               text: 'Picker',
               link: '/components/picker/'
             },
@@ -129,6 +133,10 @@ export default {
             {
               text: 'Slider',
               link: '/components/slider/'
+            },
+            {
+              text: 'Switch',
+              link: '/components/switch/'
             },
           ]
         },

@@ -10,7 +10,7 @@ describe('weui-time-picker', () => {
         placeholder: 'placeholder'
       }
     });
-    expect(wrapper.find('.weui-select').text()).toBe('placeholder');
+    expect(wrapper.find('.weui-time-value').text()).toBe('placeholder');
 
     // 触发打开选择器
     wrapper.trigger('click');
@@ -44,7 +44,7 @@ describe('weui-time-picker', () => {
         disabled: true
       }
     });
-    expect(wrapper.find('.weui-select').text()).toBe('1:2');
+    expect(wrapper.find('.weui-time-value').text()).toBe('1:2');
     expect(wrapper.classes()).toContain('weui-picker_diabled');
 
     wrapper.trigger('click');

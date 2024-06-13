@@ -15,7 +15,7 @@ describe('weui-picker', () => {
         options: pickerOptions
       }
     });
-    expect(wrapper.find('.weui-select').text()).toBe('placeholder');
+    expect(wrapper.find('.weui-picker-value').text()).toBe('placeholder');
 
     // 触发打开选择器
     wrapper.trigger('click');
@@ -54,7 +54,7 @@ describe('weui-picker', () => {
         disabled: true
       }
     });
-    expect(wrapper.find('.weui-select').text()).toBe('label2');
+    expect(wrapper.find('.weui-picker-value').text()).toBe('label2');
     expect(wrapper.classes()).toContain('weui-picker_diabled');
 
     wrapper.trigger('click');
@@ -73,7 +73,7 @@ describe('weui-picker', () => {
         isMulti: true
       }
     });
-    expect(wrapper.find('.weui-select').text()).toBe('label1/child1');
+    expect(wrapper.find('.weui-picker-value').text()).toBe('label1/child1');
     wrapper.trigger('click');
     await wrapper.vm.$nextTick();
     expect(document.querySelector('.weui-picker-selector')).not.toBeNull();
@@ -111,7 +111,7 @@ describe('weui-picker', () => {
         isMulti: true
       }
     });
-    expect(wrapper.find('.weui-select').text()).toBe('label1');
+    expect(wrapper.find('.weui-picker-value').text()).toBe('label1');
   });
 
   it('render single picker with array options', async () => {
@@ -133,7 +133,7 @@ describe('weui-picker', () => {
         isMulti: false
       }
     });
-    expect(wrapper.find('.weui-select').text()).toBe('label1');
+    expect(wrapper.find('.weui-picker-value').text()).toBe('label1');
     wrapper.trigger('click');
   });
 });

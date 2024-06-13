@@ -179,6 +179,11 @@ describe('weui-form-with-formItem', () => {
       (wrapper.getCurrentComponent() as any).setupState.validateErrors
     ).not.toHaveProperty('name');
   });
+
+  it('render vertical form item', () => {
+    const wrapper = mount(<FormItem name="name" vertical></FormItem>);
+    expect(wrapper.classes()).toContain('weui-cell_vertical');
+  });
 });
 
 describe('weui-form-group', () => {

@@ -33,8 +33,11 @@ const props = withDefaults(
     name: string;
     label?: string;
     rule?: Rule;
+    vertical?: boolean;
   }>(),
-  {}
+  {
+    vertical: false
+  }
 );
 const registerNameList = inject<(name: string) => void>(REGISTER_NAME_LIST);
 const registerRules = inject<(name: string, rule: Rule) => void>(REGISTER_RULE);
@@ -47,7 +50,8 @@ const formData = inject<ShallowRef<Record<string, any>>>(FORM_MODEL_DATA);
 
 const currentErrors = computed(() => validatorErrors?.value?.[props.name]);
 const classnames = computed(() => ({
-  'weui-cell_warn': currentErrors.value
+  'weui-cell_warn': currentErrors.value,
+  'weui-cell_vertical': props.vertical
 }));
 const currentFormData = computed(() => getObject(formData?.value, props.name));
 
