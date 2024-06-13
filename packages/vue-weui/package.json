@@ -1,6 +1,6 @@
 {
   "name": "vue-weui-next",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "",
   "main": "lib/index.js",
   "module": "es/index.mjs",
