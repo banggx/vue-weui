@@ -49,7 +49,7 @@ describe('weui-form', () => {
     const rules = {
       name: {
         required: true,
-        message: '必填项',
+        message: '必填项'
       }
     };
     const wrapper = mount(Form, {

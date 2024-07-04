@@ -68,7 +68,7 @@ const emit = defineEmits<{
 }>();
 const instance = getCurrentInstance();
 const modelData = toRef(props, 'model');
-const validateShowWarn = toRef(props, 'validateShowWarn')
+const validateShowWarn = toRef(props, 'validateShowWarn');
 const allNameList = ref<string[]>([]);
 const flexibleRules = ref<Record<string, RuleItem[]>>({});
 const validateErrors = ref<Record<string, ValidateError> | null>(null);
