@@ -138,6 +138,7 @@ const submitForm = () => {
 | rules | Rules | - | 表单校验规则 | - |
 | validateToAlert | boolean | false | 在校验失败时弹出alert提示 | - |
 | validateAlert | string | (errors: ValidateError[]) => string | - | alert提示内容 | - |
+| validateShowWarn | boolean | false | 在校验失败时显示表单警告提示 | - |
 
 
 #### Form Slots

@@ -49,14 +49,15 @@ describe('weui-form', () => {
     const rules = {
       name: {
         required: true,
-        message: '必填项'
+        message: '必填项',
       }
     };
     const wrapper = mount(Form, {
       props: {
         model: modelData,
         rules: rules,
-        validateAlert: '校验错误'
+        validateAlert: '校验错误',
+        validateShowWarn: true
       }
     });
     await expect((wrapper as any).vm.validate()).rejects.toThrow();

@@ -32,6 +32,7 @@ import {
   REGISTER_RULE,
   VALIDATE_ERRORS,
   REMOVE_VALIDATE_ERROR,
+  VALIDATE_SHOW_WARN,
   FORM_MODEL_DATA
 } from './constants';
 import merge from 'lodash/merge';
@@ -53,11 +54,13 @@ const props = withDefaults(
     rules?: Rules;
     validateToAlert?: boolean;
     validateAlert?: string | ((errors: ValidateError[]) => string);
+    validateShowWarn?: boolean;
   }>(),
   {
     model: () => ({}),
     rules: () => ({}),
-    validateToAlert: true
+    validateToAlert: true,
+    validateShowWarn: false
   }
 );
 const emit = defineEmits<{
@@ -65,6 +68,7 @@ const emit = defineEmits<{
 }>();
 const instance = getCurrentInstance();
 const modelData = toRef(props, 'model');
+const validateShowWarn = toRef(props, 'validateShowWarn')
 const allNameList = ref<string[]>([]);
 const flexibleRules = ref<Record<string, RuleItem[]>>({});
 const validateErrors = ref<Record<string, ValidateError> | null>(null);
@@ -98,6 +102,7 @@ provide(REGISTER_RULE, registerRules);
 provide(VALIDATE_ERRORS, validateErrors);
 provide(REMOVE_VALIDATE_ERROR, removeValidateError);
 provide(FORM_MODEL_DATA, modelData);
+provide(VALIDATE_SHOW_WARN, validateShowWarn);
 
 const validateForm = (nameList?: string[]) => {
   const validateData = nameList
