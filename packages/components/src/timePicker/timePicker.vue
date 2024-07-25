@@ -15,6 +15,7 @@ import { Icon } from '../icon';
 import { useVModel } from '@vueuse/core';
 import weui from 'weui.js';
 import { parseCron } from './cron';
+import { registerPicker, unregisterPicker } from '../utils/pickerManager';
 import { TimeItem } from './types';
 import './timePicker.less';
 
@@ -83,7 +84,7 @@ const pickerSelector = () => {
     minutePicker.value,
     secondPicker.value
   ].filter((item) => item.length);
-  weui.picker(...options, {
+  const pickerIns = weui.picker(...options, {
     className: 'weui-time-picker-selector',
     container: props.container,
     onChange(result: TimeItem[]) {
@@ -92,7 +93,11 @@ const pickerSelector = () => {
     onConfirm(result: TimeItem[]) {
       value.value = result.map((item) => item.value);
       emit('change', result);
-    }
+    },
+    onClose() {
+      unregisterPicker(pickerIns);
+    },
   });
+  registerPicker(pickerIns);
 };
 </script>

@@ -201,6 +201,8 @@
       </weui-form-item>
     </weui-form-group>
   </weui-form>
+
+  <div class="fix-btn" @click="utils.closeAllPicker()">固定</div>
 </template>
 
 <script lang="ts" setup>
@@ -211,7 +213,8 @@ import {
   // Dialog,
   // Alert,
   FormInstance,
-  Rules
+  Rules,
+  utils
 } from 'vue-weui-component';
 
 const sliderVal = ref(0);
@@ -322,5 +325,16 @@ onMounted(() => {
   background-color: #f8f8f8;
   padding: 16px 16px 80px;
   box-sizing: border-box;
+}
+
+.fix-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background-color: #ededed;
+  border-radius: 4px;
+  padding: 4px 8px;
+  box-sizing: border-box;
+  z-index: 10000;
 }
 </style>

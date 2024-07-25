@@ -15,6 +15,7 @@ import { Icon } from '../icon';
 import { useVModel } from '@vueuse/core';
 import weui from 'weui.js';
 import dayjs, { Dayjs } from 'dayjs';
+import { registerPicker, unregisterPicker } from '../utils/pickerManager';
 import type { DateItem } from './types';
 import './datePicker.less';
 
@@ -62,7 +63,7 @@ const pickerSelector = () => {
   const defaultMoth = defaultDate.month() + 1;
   const defaultday = defaultDate.date();
 
-  weui.datePicker({
+  const pickerIns = weui.datePicker({
     className: 'weui-date-picker-selector',
     container: props.container,
     start: dayjs(props.start).toDate(),
@@ -80,7 +81,12 @@ const pickerSelector = () => {
       const valueDate = value.value instanceof Date ? date.toDate() : date;
       value.value = valueDate;
       emit('change', date);
+    },
+    onClose() {
+      unregisterPicker(pickerIns);
     }
   });
+
+  registerPicker(pickerIns);
 };
 </script>

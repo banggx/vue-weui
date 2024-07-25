@@ -14,6 +14,7 @@ import { computed } from 'vue';
 import { Icon } from '../icon';
 import { useVModel } from '@vueuse/core';
 import weui from 'weui.js';
+import { registerPicker, unregisterPicker } from '../utils/pickerManager';
 import type { PickerItem } from './types';
 import './picker.less';
 
@@ -87,7 +88,7 @@ const pickerSelector = () => {
   const pickerOptions = Array.isArray(props.options[0])
     ? props.options
     : [props.options];
-  weui.picker(...pickerOptions, {
+  const pickerIns = weui.picker(...pickerOptions, {
     className: 'weui-picker-selector',
     container: props.container,
     defaultValue: [value.value],
@@ -106,7 +107,11 @@ const pickerSelector = () => {
           : (emitResult as PickerItem<T>).value
       ) as R extends true ? T[] : T;
       emit('change', emitResult as Val);
-    }
+    },
+    onClose() {
+      unregisterPicker(pickerIns);
+    },
   });
+  registerPicker(pickerIns);
 };
 </script>
