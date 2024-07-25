@@ -35,6 +35,7 @@ const pickerTime = ref();
 | hourFormatter | (val: number) => { label: string; disabled?: boolean }; | - | 格式化选择器时显示 | - |
 | minuteFormatter | (val: number) => { label: string; disabled?: boolean }; | - | 格式化选择器分显示 | - |
 | secondFormatter | (val: number) => { label: string; disabled?: boolean }; | - | 格式化选择器秒显示 | - |
+| container | string | 'body' | picker挂载节点 | - |
 
 
 #### TimePicker Events

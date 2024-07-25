@@ -30,13 +30,15 @@ const props = withDefaults(
     disabled?: boolean;
     formatter?: string;
     cron?: string;
+    container?: string;
   }>(),
   {
     start: () => dayjs('2000-1-1'),
     end: () => dayjs('2030-1-1'),
     disabled: false,
     formatter: 'YYYY-MM-DD',
-    cron: '* * *'
+    cron: '* * *',
+    container: 'body'
   }
 );
 const emit = defineEmits<{
@@ -62,7 +64,7 @@ const pickerSelector = () => {
 
   weui.datePicker({
     className: 'weui-date-picker-selector',
-    container: 'body',
+    container: props.container,
     start: dayjs(props.start).toDate(),
     end: dayjs(props.end).toDate(),
     defaultValue: [defaultYear, defaultMoth, defaultday],

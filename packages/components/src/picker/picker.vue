@@ -32,12 +32,14 @@ const props = withDefaults(
     confirmText?: string;
     title?: string;
     desc?: string;
+    container?: string;
   }>(),
   {
     options: () => [],
     disabled: false,
     delimiter: '/',
-    confirmText: '确定'
+    confirmText: '确定',
+    container: 'body'
   }
 );
 const emit = defineEmits<{
@@ -87,7 +89,7 @@ const pickerSelector = () => {
     : [props.options];
   weui.picker(...pickerOptions, {
     className: 'weui-picker-selector',
-    container: 'body',
+    container: props.container,
     defaultValue: [value.value],
     confirmText: props.confirmText,
     title: props.title,

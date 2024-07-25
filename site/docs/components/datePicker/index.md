@@ -34,7 +34,7 @@ const pickerDate = ref(Date());
 | disabled | boolean | false | 是否禁用 | - |
 | formatter | string |'YYYY-MM-DD' | 格式化字符串 | - |
 | cron | string |'* * *' | cron 表达式，三位，分别是 dayOfMonth[1-31]，month[1-12] 和 dayOfWeek[0-6]（周日-周六） | - |
-
+| container | string | 'body' | picker挂载节点 | - |
 
 #### DatePicker Events
 |  名称   | 描述  | 参数 | 版本 |

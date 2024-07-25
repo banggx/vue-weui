@@ -28,6 +28,7 @@ const props = withDefaults(
     disabled?: boolean;
     formatter?: (val: number[]) => string;
     cron?: string;
+    container?: string;
     hourFormatter?: (val: number) => { label: string; disabled?: boolean };
     minuteFormatter?: (val: number) => { label: string; disabled?: boolean };
     secondFormatter?: (val: number) => { label: string; disabled?: boolean };
@@ -35,6 +36,7 @@ const props = withDefaults(
   {
     disabled: false,
     cron: '* * *',
+    container: 'body',
     formatter: (val: number[]) => val.join(':'),
     hourFormatter: (val: number) => ({ label: `${val}时` }),
     minuteFormatter: (val: number) => ({ label: `${val}分` }),
@@ -83,7 +85,7 @@ const pickerSelector = () => {
   ].filter((item) => item.length);
   weui.picker(...options, {
     className: 'weui-time-picker-selector',
-    container: 'body',
+    container: props.container,
     onChange(result: TimeItem[]) {
       emit('selectChange', result);
     },

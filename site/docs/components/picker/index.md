@@ -44,6 +44,7 @@ const pickerOptions = [
 | confirmText | string | '确定' | 选择器确认按钮 | - |
 | title | string | - | 选择器标题 | - |
 | desc | string | - | 选择器描述 | - |
+| container | string | 'body' | picker挂载节点 | - |
 
 #### Picker Events
 |  名称   | 描述  | 参数 | 版本 |
