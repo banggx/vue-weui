@@ -1,5 +1,5 @@
 <template>
-  <button class="weui-btn" :class="classNames" @click="clickHandler">
+  <button class="weui-btn" :class="classNames" @click.prevent="clickHandler">
     <i v-if="loading" class="weui-mask-loading"></i>
     <slot></slot>
   </button>
