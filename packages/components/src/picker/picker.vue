@@ -110,7 +110,7 @@ const pickerSelector = () => {
     },
     onClose() {
       unregisterPicker(pickerIns);
-    },
+    }
   });
   registerPicker(pickerIns);
 };

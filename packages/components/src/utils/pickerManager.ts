@@ -3,16 +3,16 @@
  */
 
 interface PickerInstance {
-  hide: () => void
+  hide: () => void;
 }
 
-let pickerMap = new Map<HTMLElement & PickerInstance, boolean>()
+const pickerMap = new Map<HTMLElement & PickerInstance, boolean>();
 export function registerPicker(picker: HTMLElement & PickerInstance) {
-  pickerMap.set(picker, true)
+  pickerMap.set(picker, true);
 }
 
 export function unregisterPicker(picker: HTMLElement & PickerInstance) {
-  pickerMap.delete(picker)
+  pickerMap.delete(picker);
 }
 
 export function closeAllPicker() {
@@ -25,4 +25,3 @@ export function closeAllPicker() {
 export function getAllPicker() {
   return pickerMap;
 }
-
