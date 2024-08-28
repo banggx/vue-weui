@@ -19,7 +19,7 @@ Weui style UI component library developed and implemented based on Vue3.
 Before starting to use it, you need to introduce the weui style file into the html file. ([WeUI](https://github.com/Tencent/weui))
 
 ```html
-<link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.3.0/weui.min.css"/>
+<link rel="stylesheet" href="https://res.wx.qq.com/t/wx_fed/weui-source/res/2.6.16/weui.min.css"/>
 ```
 
 Install component package.

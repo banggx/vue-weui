@@ -3,7 +3,7 @@
 在开始使用之前，需要在html文件中引入weui样式文件。([WeUI](https://github.com/Tencent/weui))
 
 ```html
-<link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.3.0/weui.min.css"/>
+<link rel="stylesheet" href="https://res.wx.qq.com/t/wx_fed/weui-source/res/2.6.16/weui.min.css"/>
 ```
 
 安装组件包
