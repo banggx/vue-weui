@@ -62,7 +62,7 @@ app.mount('#app');
 
 当前完善了weui基础组件内容，后续将持续更新完善weui form表单相关的组件，如果对此项目感兴趣，欢迎一起贡献。
 
-如果您发现任何代码问题，请随时提交问题。作者会及时更新和修复。谢谢
+如果您发现任何代码问题，或者有希望新增的组件或能力，请随时提交问题。作者会及时更新和修复。谢谢
 
 > ![](https://open.weixin.qq.com/zh_CN/htmledition/res/assets/res-design-download/icon16_wx_logo.png) *bangtz* (Add please note vue-weui)
 
