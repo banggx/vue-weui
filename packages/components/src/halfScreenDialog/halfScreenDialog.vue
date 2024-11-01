@@ -16,10 +16,20 @@
     <Transition name="weui-slide-up" :duration="{ enter: 300, leave: 300 }">
       <div
         v-if="visible"
-        id="js_dialog_1"
-        class="js_dialog weui-half-screen-dialog weui-half-screen-dialog_show"
+        ref="dialogRef"
+        id="js_dialog"
+        :class="dialogClassnames"
       >
-        <div class="weui-half-screen-dialog__hd">
+        <div v-if="slide" class="weui-half-screen-dialog__hd">
+          <div
+            id="js_line"
+            class="weui-half-screen-dialog__slide-icon"
+            style="height: 4px; border-radius: 2px"
+          >
+            <i id="js_arrow" class="weui-icon-arrow" style="opacity: 0"></i>
+          </div>
+        </div>
+        <div v-else class="weui-half-screen-dialog__hd">
           <div
             v-if="showClose"
             class="weui-half-screen-dialog__hd__side"
@@ -65,9 +75,11 @@
 </template>
 
 <script lang="ts" setup>
+import { computed, ref } from 'vue';
 import { useVModel } from '@vueuse/core';
 import Mask from '../mask';
 import Icon from '../icon';
+import { useSlideDialog } from '../hooks/useSlideDialog';
 
 defineOptions({
   name: 'weui-half-screen-dialog'
@@ -79,6 +91,7 @@ const props = withDefaults(
     title?: string;
     subTitle?: string;
     iconType?: 'close' | 'slide-down';
+    slide?: boolean; // slide down 拖拽半屏效果
   }>(),
   {
     modelValue: false,
@@ -93,9 +106,19 @@ const emit = defineEmits<{
   (type: 'close'): void;
 }>();
 const visible = useVModel(props, 'modelValue', emit);
+const dialogRef = ref<HTMLElement | null>(null);
+
+const dialogClassnames = computed(() => [
+  'js_dialog weui-half-screen-dialog weui-half-screen-dialog_show',
+  {
+    'weui-half-screen-dialog_slide': props.slide
+  }
+]);
 
 const closeHandler = () => {
   visible.value = false;
   emit('close');
 };
+
+props.slide && useSlideDialog(visible, dialogRef, closeHandler);
 </script>

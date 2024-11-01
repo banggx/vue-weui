@@ -106,6 +106,7 @@
     icon-type="slide-down"
     title="测试"
     sub-title="副标题"
+    slide
   >
   </weui-half-screen-dialog>
 

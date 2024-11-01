@@ -104,4 +104,88 @@ describe('weui-half-screen-dialog', () => {
     expect(wrapper.find('.weui-mask').exists()).toBe(false);
     expect(wrapper.find('.weui-half-screen-dialog').exists()).toBe(false);
   });
+
+  it('render basic slide dialog', async () => {
+    const wrapper = mount(HalfScreenDialog, {
+      props: {
+        slide: true,
+        modelValue: true
+      }
+    });
+
+    expect(wrapper.find('.js_dialog').classes()).includes(
+      'weui-half-screen-dialog_slide'
+    );
+    expect(wrapper.find('#js_line').exists()).toBe(true);
+  });
+
+  it('render slide dialog trigger touch event(move distance more than 56px)', () => {
+    const wrapper = mount(HalfScreenDialog, {
+      props: {
+        slide: true,
+        modelValue: true
+      }
+    });
+
+    // trigger touche event move distance more than 56px
+    Promise.resolve().then(async () => {
+      const dialog = wrapper.find('#js_line');
+      await dialog.trigger('touchstart', {
+        changedTouches: [{ clientX: 100, clientY: 50 }]
+      });
+      await dialog.trigger('touchmove', {
+        changedTouches: [{ clientX: 100, clientY: 110 }]
+      });
+      await dialog.trigger('touchend', {
+        changedTouches: [{ clientX: 100, clientY: 110 }]
+      });
+      expect(wrapper.emitted()).toHaveProperty('close');
+    });
+  });
+
+  it('render slide dialog trigger touch event(move distance less than 56px)', () => {
+    const wrapper = mount(HalfScreenDialog, {
+      props: {
+        slide: true,
+        modelValue: true
+      }
+    });
+
+    Promise.resolve().then(async () => {
+      const dialog = wrapper.find('#js_line');
+      await dialog.trigger('touchstart', {
+        changedTouches: [{ clientX: 100, clientY: 50 }]
+      });
+      await dialog.trigger('touchmove', {
+        changedTouches: [{ clientX: 100, clientY: 60 }]
+      });
+      await dialog.trigger('touchend', {
+        changedTouches: [{ clientX: 100, clientY: 60 }]
+      });
+      expect(wrapper.emitted()).not.toHaveProperty('close');
+    });
+  });
+
+  it('render slide dialog trigger touch event(no move distance)', () => {
+    const wrapper = mount(HalfScreenDialog, {
+      props: {
+        slide: true,
+        modelValue: true
+      }
+    });
+
+    Promise.resolve().then(async () => {
+      const dialog = wrapper.find('#js_line');
+      await dialog.trigger('touchstart', {
+        changedTouches: [{ clientX: 100, clientY: 50 }]
+      });
+      await dialog.trigger('touchmove', {
+        changedTouches: [{ clientX: 100, clientY: 50 }]
+      });
+      await dialog.trigger('touchend', {
+        changedTouches: [{ clientX: 100, clientY: 50 }]
+      });
+      expect(wrapper.emitted()).not.toHaveProperty('close');
+    });
+  });
 });

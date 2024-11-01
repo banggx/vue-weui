@@ -32,6 +32,35 @@ const closeHandler = () => {
 ```
 :::
 
+
+### Slide 拖拽半屏
+
+<custom-slide-halfscreen />
+
+::: details 显示代码
+```vue
+<template>
+  <weui-button @click="visible = true">打开拖拽半屏</weui-button>
+  <weui-half-screen-dialog
+    v-model="visible"
+    slide
+    @close="closeHandler"
+  >
+    可拖拽 HalfScreen
+  </weui-half-screen-dialog>
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue';
+
+const visible = ref(false);
+const closeHandler = () => {
+  console.log('close')
+};
+</script>
+```
+
+
 ### API
 #### HalfScreenDialog Props
 |  名称   | 类型  | 默认值 | 说明 | 版本 |
@@ -41,6 +70,8 @@ const closeHandler = () => {
 | title | string | - | 标题内容 | - |
 | subTitle | string | - | 副标题内容 | - |
 | iconType | 'close' \| 'slide-down' | 'close' | 关闭按钮类型 | - |
+| slide | boolean | false | 可拖拽半屏(可拖拽半屏无标题和副标题，icon图标配置，相关配置无效) | - |
+
 
 #### HalfScreenDialog Slots
 |  名称   | 参数  | 说明 | 版本 |
