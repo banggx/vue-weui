@@ -46,6 +46,7 @@ declare module '@vue/runtime-core' {
     weuiTimePicker: typeof components.TimePicker;
     weuiTextarea: typeof components.Textarea;
     weuiSwitch: typeof components.Switch;
+    weuiUploader: typeof components.Uploader;
   }
 }
 export {};

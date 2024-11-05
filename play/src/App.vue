@@ -204,6 +204,19 @@
   </weui-form>
 
   <div class="fix-btn" @click="utils.closeAllPicker()">固定</div>
+
+  <weui-uploader
+    v-model="fileList"
+    action="http://localhost:8080/upload"
+    :multiple="true"
+    :before-send="beforeSend"
+    :custom-sebd="customUpload"
+    :repeat-upload="false"
+  >
+    <!-- <template #uploadBtn>
+      <weui-button type="primary">上传文件</weui-button>
+    </template> -->
+  </weui-uploader>
 </template>
 
 <script lang="ts" setup>
@@ -228,6 +241,7 @@ const visibleHalf = ref(false);
 const visiblePicker = ref(false);
 const navBar = ref('menu1');
 const searchKey = ref('');
+const fileList = ref([]);
 
 const formData = ref({
   name: undefined,
@@ -285,6 +299,25 @@ const pickerOptions = [
   { label: 'label5', value: 5 }
 ];
 
+const beforeSend = () => {
+  return {
+    headers: {
+      name: 'xxx'
+    }
+  };
+};
+
+const customUpload = async () => {
+  return {
+    status: 'success',
+    url: 'xxx'
+  };
+};
+
+// const customSend = async (file: any) => {
+//   console.log(file);
+// };
+
 onMounted(() => {
   // Toast.toast({
   //   text: '测试函数调用',
@@ -314,10 +347,9 @@ onMounted(() => {
   //   duration: 0,
   //   type: 'warn-primary'
   // });
-
-  formRef.value?.validate().then((res) => {
-    console.log(res);
-  });
+  // formRef.value?.validate().then((res) => {
+  //   console.log(res);
+  // });
 });
 </script>
 

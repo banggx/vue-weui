@@ -1,0 +1,38 @@
+.weui-uploader__input-wrapper {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  overflow: hidden;
+  .weui-uploader__input-box {
+    float: none;
+    margin-right: 0;
+    margin-bottom: 0;
+  }
+}
+
+.weui-uploader {
+  .weui-uploader__bd {
+    overflow: visible;
+  }
+  .weui-uploader__file {
+    .delete-upload-btn {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      top: -8px;
+      right: -8px;
+      background: var(--weui-BG-2);
+      border-radius: 50%;
+      box-shadow: 0 0 2px var(--weui-FG-2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+      color: var(--weui-FG-1);
+      .close-icon {
+        width: 12px;
+        height: 12px;
+      }
+    }
+  }
+}

@@ -23,6 +23,7 @@
     "@commitlint/cli": "^19.1.0",
     "@commitlint/config-conventional": "^19.1.0",
     "@testing-library/user-event": "^14.5.2",
+    "@types/crypto-js": "^4.2.2",
     "@types/fs-extra": "^11.0.4",
     "@types/gulp": "^4.0.17",
     "@types/gulp-autoprefixer": "^0.0.37",
@@ -68,6 +69,7 @@
   },
   "dependencies": {
     "@vueuse/core": "^10.7.0",
+    "crypto-js": "^4.2.0",
     "weui.js": "^1.2.19"
   },
   "repository": {

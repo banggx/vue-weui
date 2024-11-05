@@ -32,4 +32,5 @@ export * from './datePicker';
 export * from './timePicker';
 export * from './textarea';
 export * from './switch';
+export * from './uploader';
 export { default as utils } from './utils/exports';
