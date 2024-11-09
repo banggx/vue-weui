@@ -54,6 +54,7 @@
           :accept="acceptType"
           :capture="true"
           :multiple="multiple"
+          :disabled="disabled"
           @change="handleInputChange"
         />
       </div>
@@ -168,7 +169,7 @@ const uploadFileHandler = (file: UploadFile) => {
           'Illegal operation, custom upload logic returns Promise and needs to provide upload information.'
         );
         errorHandler(file, error);
-        throw error;
+        return;
       }
       const { status, url } = result;
       file.status = status;
@@ -275,7 +276,6 @@ const handleInputChange = (evt: Event) => {
   Array.prototype.forEach.call(files, (file) => {
     beforeQueue(file, files).then((res) => {
       if (res === false) return;
-
       const fileId = shortid(9);
       const uploadItem: UploadItem = {
         id: fileId,
@@ -289,7 +289,7 @@ const handleInputChange = (evt: Event) => {
       fileList.value.push(uploadItem);
 
       if (
-        (compress.value === false && type.value == 'file') ||
+        (compress.value === false && type.value === 'file') ||
         accept?.value !== 'image'
       ) {
         uploadFileHandler(file);

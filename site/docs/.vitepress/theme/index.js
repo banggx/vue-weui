@@ -12,6 +12,7 @@ import ValidateForm from '../components/ValidateForm.vue';
 import Picker from '../components/Picker.vue';
 import DatePicker from '../components/DatePicker.vue';
 import TimePicker from '../components/TimePicker.vue';
+import Uploader from '../components/Uploader.vue';
 
 export default {
   ...DefaultTheme,
@@ -36,5 +37,6 @@ export default {
     app.component('custom-picker', Picker);
     app.component('custom-date-picker', DatePicker);
     app.component('custom-time-picker', TimePicker);
+    app.component('custom-uploader', Uploader);
   },
 };

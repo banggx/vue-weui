@@ -138,6 +138,10 @@ export default {
               text: 'Switch',
               link: '/components/switch/'
             },
+            {
+              text: 'Uploader',
+              link: '/components/uploader/'
+            },
           ]
         },
         {

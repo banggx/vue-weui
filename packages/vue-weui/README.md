@@ -62,7 +62,7 @@ Manual import.
 
 Currently, the content of the basic components of weui has been improved. We will continue to update and improve the components related to the weui form form in the future. If you are interested in this project, you are welcome to contribute.
 
-If you find any code problems, please feel free to submit an issue. The author will update and fix them in time. Thank you.
+If you find any code problems, or there are new components or capabilities that you hope to add, please feel free to submit an issue. The author will update and fix them in time. Thank you.
 
 > ![](https://open.weixin.qq.com/zh_CN/htmledition/res/assets/res-design-download/icon16_wx_logo.png) *bangtz* (Add please note vue-weui)
 

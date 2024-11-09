@@ -66,6 +66,7 @@ export default defineConfig({
     environment: 'happy-dom',
     include: ['./src/**/*.{test,spec}.?(c|m)[jt]s?(x)'],
     coverage: {
+      provider: 'v8',
       exclude: [
         '**/node_modules/**',
         '**/dist/**',
