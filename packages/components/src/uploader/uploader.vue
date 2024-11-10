@@ -70,7 +70,7 @@ import isObject from 'lodash/isObject';
 import { shortid } from '../utils';
 import upload from './upload';
 import compressFile from './compress';
-import fileHash from './filehash';
+import fileHash, { loadCryptoJs } from './filehash';
 import { getFileType } from './tools';
 import {
   AcceptType,
@@ -132,6 +132,7 @@ const { accept, action, name, type, compress, maxSize, maxCount } =
   toRefs(props);
 const acceptType = useAccpect(accept);
 const fileList = useVModel(props, 'modelValue', emit);
+!props.repeatUpload && loadCryptoJs();
 const uploadHash = new Set<string>();
 const hashPromises = new Set<Promise<any>>();
 
