@@ -204,6 +204,9 @@
   </weui-form>
 
   <div class="fix-btn" @click="utils.closeAllPicker()">固定</div>
+  <div class="fix-btn fix-btn-2" @click="visibleGallery = !visibleGallery">
+    打开图片预览
+  </div>
 
   <weui-uploader
     v-model="fileList"
@@ -217,6 +220,14 @@
       <weui-button type="primary">上传文件</weui-button>
     </template> -->
   </weui-uploader>
+
+  <weui-gallery
+    v-model="galleryIndex"
+    :visible="visibleGallery"
+    :urls="images"
+    @close="visibleGallery = false"
+    @delete="(index) => images.splice(index, 1)"
+  ></weui-gallery>
 </template>
 
 <script lang="ts" setup>
@@ -242,6 +253,12 @@ const visiblePicker = ref(false);
 const navBar = ref('menu1');
 const searchKey = ref('');
 const fileList = ref([]);
+const images = ref([
+  'https://next-images.123rf.com/index/_next/image/?url=https://assets-cdn.123rf.com/index/static/assets/top-section-bg.jpeg&w=3840&q=75',
+  'https://imgs.699pic.com/images/500/465/562.jpg!list1x.v2'
+]);
+const visibleGallery = ref(false);
+const galleryIndex = ref(1);
 
 const formData = ref({
   name: undefined,
@@ -369,5 +386,9 @@ onMounted(() => {
   padding: 4px 8px;
   box-sizing: border-box;
   z-index: 10000;
+}
+
+.fix-btn-2 {
+  left: 80px;
 }
 </style>

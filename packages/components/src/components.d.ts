@@ -47,6 +47,7 @@ declare module '@vue/runtime-core' {
     weuiTextarea: typeof components.Textarea;
     weuiSwitch: typeof components.Switch;
     weuiUploader: typeof components.Uploader;
+    weuiGallery: typeof components.Gallery;
   }
 }
 export {};
