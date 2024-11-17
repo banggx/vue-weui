@@ -100,6 +100,10 @@ export default {
             {
               text: 'Steps',
               link: '/components/steps/'
+            },
+            {
+              text: 'Gallery',
+              link: '/components/gallery/'
             }
           ]
         },

@@ -54,8 +54,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, toRefs, watchEffect } from 'vue';
-import { useVModel } from '@vueuse/core';
+import { ref, toRefs, onMounted } from 'vue';
 import './gallery.less';
 
 defineOptions({
@@ -64,42 +63,55 @@ defineOptions({
 const props = withDefaults(
   defineProps<{
     urls: string[];
-    modelValue?: number;
+    initialIndex?: number;
     visible?: boolean;
   }>(),
   {
-    modelValue: 0,
+    initialIndex: 0,
     visible: false
   }
 );
 const emit = defineEmits<{
-  (type: 'update:modelValue', value: number): void;
   (type: 'change', index: number): void;
-  (type: 'delete', index, url: string): void;
+  (type: 'delete', index: number, url: string): void;
   (type: 'close'): void;
 }>();
 const { visible, urls } = toRefs(props);
-const currentIndex = useVModel(props, 'modelValue', emit);
+const currentIndex = ref(props.initialIndex);
 const startX = ref(0);
 const moveX = ref(0);
 const containerRef = ref<HTMLElement | null>(null);
 
+defineExpose<{
+  updateIndex(index: number): void;
+}>({
+  updateIndex: (index: number) => {
+    currentIndex.value = index;
+    if (containerRef.value) {
+      containerRef.value.style.transform = `translateX(${-index * 100}%)`;
+    }
+  }
+});
+
 const handleTouchStart = (e: TouchEvent) => {
-  startX.value = e.touches[0].clientX;
+  e.preventDefault();
+  startX.value = e.changedTouches[0].clientX;
   moveX.value = 0;
   if (containerRef.value) {
     containerRef.value.style.transition = 'none';
   }
 };
 const handleTouchMove = (e: TouchEvent) => {
-  moveX.value = e.touches[0].clientX - startX.value;
+  e.preventDefault();
+  moveX.value = e.changedTouches[0].clientX - startX.value;
   if (containerRef.value) {
     const translateX =
       -currentIndex.value * 100 + (moveX.value / window.innerWidth) * 100;
     containerRef.value.style.transform = `translateX(${translateX}%)`;
   }
 };
-const handleTouchEnd = () => {
+const handleTouchEnd = (e: TouchEvent) => {
+  e.preventDefault();
   if (containerRef.value) {
     containerRef.value.style.transition = 'transform 0.3s';
 
@@ -110,17 +122,15 @@ const handleTouchEnd = () => {
     if (Math.abs(moveX.value) > threshold) {
       if (moveX.value > 0 && currentIndex.value > 0) {
         current--;
-      } else if (moveX.value < 0 && current < props.urls.length - 1) {
+      } else if (moveX.value < 0 && current < urls.value.length - 1) {
         current++;
       }
     }
     if (current !== currentIndex.value) {
       currentIndex.value = current;
       emit('change', current);
-    } else {
-      // 没触发滚动，回弹
-      containerRef.value.style.transform = `translateX(${-current * 100}%)`;
     }
+    containerRef.value.style.transform = `translateX(${-current * 100}%)`;
   }
 };
 const closeGallery = () => {
@@ -131,10 +141,12 @@ const deleteGallery = () => {
   emit('delete', currentIndex.value, url);
 };
 
-watchEffect(() => {
-  if (!containerRef.value) return;
-  containerRef.value.style.transform = `translateX(${
-    -currentIndex.value * 100
-  }%)`;
+onMounted(() => {
+  // 初始化定位
+  if (containerRef.value && props.initialIndex !== 0) {
+    containerRef.value.style.transform = `translateX(${
+      -currentIndex.value * 100
+    }%)`;
+  }
 });
 </script>

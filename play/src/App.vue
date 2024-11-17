@@ -222,7 +222,7 @@
   </weui-uploader>
 
   <weui-gallery
-    v-model="galleryIndex"
+    :initial-index="galleryIndex"
     :visible="visibleGallery"
     :urls="images"
     @close="visibleGallery = false"
@@ -237,6 +237,7 @@ import {
   // ActionSheet,
   // Dialog,
   // Alert,
+  // Gallery,
   FormInstance,
   Rules,
   utils
@@ -258,7 +259,7 @@ const images = ref([
   'https://imgs.699pic.com/images/500/465/562.jpg!list1x.v2'
 ]);
 const visibleGallery = ref(false);
-const galleryIndex = ref(1);
+const galleryIndex = ref(0);
 
 const formData = ref({
   name: undefined,
@@ -330,6 +331,22 @@ const customUpload = async () => {
     url: 'xxx'
   };
 };
+
+// const manualGallery = () => {
+//   const closeGallery = Gallery.gallery({
+//     urls: images.value,
+//     onChange: (index: number) => {
+//       console.log(index);
+//     },
+//     onClose: () => {
+//       console.log('gallery close');
+//       closeGallery && closeGallery();
+//     },
+//     onDelete: (index: number, url: string) => {
+//       console.log('gallery delete', index, url);
+//     }
+//   });
+// };
 
 // const customSend = async (file: any) => {
 //   console.log(file);

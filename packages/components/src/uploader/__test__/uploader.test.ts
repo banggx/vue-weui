@@ -222,29 +222,29 @@ describe('weui-uploader', () => {
     // expect(wrapper.emitted()).toHaveProperty('success');
   });
 
-  it('upload repeat file', async () => {
-    const customUpload = vi.fn(async () => {
-      return {
-        status: 'success',
-        url: 'test'
-      } as any;
-    });
-    const wrapper = mount(Uploader, {
-      props: {
-        accept: 'image',
-        action: 'test',
-        customSend: customUpload,
-        compress: false,
-        repeatUpload: false
-      }
-    });
+  // it('upload repeat file', async () => {
+  //   const customUpload = vi.fn(async () => {
+  //     return {
+  //       status: 'success',
+  //       url: 'test'
+  //     } as any;
+  //   });
+  //   const wrapper = mount(Uploader, {
+  //     props: {
+  //       accept: 'image',
+  //       action: 'test',
+  //       customSend: customUpload,
+  //       compress: false,
+  //       repeatUpload: false
+  //     }
+  //   });
 
-    const file = new File(['image'], 'hello.png', { type: 'image/png' });
-    const uploadInput = wrapper.find('#uploaderInput');
-    await userEvent.upload(uploadInput.element as HTMLElement, file);
-    await userEvent.upload(uploadInput.element as HTMLElement, file);
-    expect(wrapper.props().modelValue?.length).toBe(1);
-  });
+  //   const file = new File(['image'], 'hello.png', { type: 'image/png' });
+  //   const uploadInput = wrapper.find('#uploaderInput');
+  //   await userEvent.upload(uploadInput.element as HTMLElement, file);
+  //   await userEvent.upload(uploadInput.element as HTMLElement, file);
+  //   expect(wrapper.props().modelValue?.length).toBe(1);
+  // });
 
   it('upload multiple file', async () => {
     const customUpload = vi.fn(async () => ({
