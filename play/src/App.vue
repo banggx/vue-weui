@@ -389,7 +389,7 @@ onMounted(() => {
 
 <style>
 #app {
-  background-color: #f8f8f8;
+  background-color: var(--weui-BG-0);
   padding: 16px 16px 80px;
   box-sizing: border-box;
 }
