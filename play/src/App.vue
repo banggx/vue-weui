@@ -1,6 +1,11 @@
 <template>
   <weui-icon type="waiting" size="20px"></weui-icon>
-  <weui-button type="warn" loading>按钮</weui-button>
+  <weui-calendar
+    v-model="calendar"
+    min="2023-12-20"
+    :default-date="calendarDefault"
+  ></weui-calendar>
+  <weui-button>按钮</weui-button>
   <weui-slider v-model="sliderVal" :step="10"></weui-slider>
   <weui-loading type="primary"></weui-loading>
   <weui-progress :count="50">
@@ -261,6 +266,9 @@ const images = ref([
 const visibleGallery = ref(false);
 const galleryIndex = ref(0);
 
+const calendar = ref<any>();
+const calendarDefault = ref(['2024-12-20', '2024-12-25']);
+
 const formData = ref({
   name: undefined,
   text: '',
@@ -389,7 +397,7 @@ onMounted(() => {
 
 <style>
 #app {
-  background-color: #f8f8f8;
+  background-color: var(--weui-BG-0);
   padding: 16px 16px 80px;
   box-sizing: border-box;
 }

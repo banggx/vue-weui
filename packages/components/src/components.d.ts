@@ -48,6 +48,7 @@ declare module '@vue/runtime-core' {
     weuiSwitch: typeof components.Switch;
     weuiUploader: typeof components.Uploader;
     weuiGallery: typeof components.Gallery;
+    weuiCalendar: typeof components.Calendar;
   }
 }
 export {};

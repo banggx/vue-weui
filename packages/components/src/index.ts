@@ -34,4 +34,5 @@ export * from './textarea';
 export * from './switch';
 export * from './uploader';
 export * from './gallery';
+export * from './calendar';
 export { default as utils } from './utils/exports';

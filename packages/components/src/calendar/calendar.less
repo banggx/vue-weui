@@ -1,0 +1,119 @@
+.weui-calendar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 1.4118em;
+  line-height: 1.4118;
+  color: var(--weui-FG-0);
+
+  .weui-date-value {
+    flex: 1;
+
+    &.empty-value {
+      color: var(--weui-FG-2);
+    }
+  }
+
+  .clear-btn {
+    width: 20px;
+    height: 20px;
+    margin: 0 8px;
+  }
+}
+
+.weui-calendar__header {
+  .weui-calendar__weekdays {
+    display: grid;
+    flex-shrink: 0;
+    grid-template-columns: repeat(7, 1fr);
+    padding: 10px 0;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: var(--weui-FG-0);
+    text-align: center;
+    border-bottom: 1px solid var(--weui-FG-3);
+  }
+}
+
+.weui-calendar__content {
+  position: relative;
+  overflow: hidden;
+  touch-action: pan-y;
+  user-select: none;
+
+  .weui-calendar__month-viewer {
+    height: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .weui-calendar__days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+
+    .day-wrapper {
+      position: relative;
+      padding-top: 100%;
+
+      .day-number {
+        position: absolute;
+        inset: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        color: var(--weui-FG-0);
+        cursor: pointer;
+        border-radius: 50%;
+        transition: all 0.2s ease;
+      }
+
+      &.disabled .day-number {
+        color: var(--weui-FG-1);
+        cursor: not-allowed;
+        background-color: var(--weui-BG-0);
+        border-radius: 0;
+        opacity: 0.8;
+      }
+
+      &.selected .day-number {
+        color: var(--weui-WHITE);
+        background-color: var(--weui-BRAND);
+        border-radius: 50%;
+      }
+
+      &.in-range {
+        background-color: var(--weui-BRAND-170);
+        border-radius: 0;
+      }
+    }
+  }
+
+  .slide-up-enter-active,
+  .slide-up-leave-active,
+  .slide-down-enter-active,
+  .slide-down-leave-active {
+    transition: all 0.2s ease;
+  }
+
+  .slide-up-enter-from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+
+  .slide-up-leave-to {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+
+  .slide-down-enter-from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+
+  .slide-down-leave-to {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+}

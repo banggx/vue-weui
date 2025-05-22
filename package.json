@@ -70,6 +70,7 @@
   "dependencies": {
     "@vueuse/core": "^10.7.0",
     "crypto-js": "^4.2.0",
+    "dayjs": "^1.11.10",
     "weui.js": "^1.2.19"
   },
   "repository": {

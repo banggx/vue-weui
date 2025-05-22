@@ -20,7 +20,8 @@ const props = defineProps<{
     | 'close-thin'
     | 'slide-down'
     | 'arrow'
-    | 'outlined-warn';
+    | 'outlined-warn'
+    | 'clear';
   size?: number | string;
 }>();
 const classNames = computed(() => [`weui-icon-${props.type}`]);
