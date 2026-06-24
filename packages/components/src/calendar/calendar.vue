@@ -17,8 +17,13 @@
         v-for="date in calendarDays"
         :key="date.key"
         class="weui-calendar-day"
-        :class="{ 'weui-calendar-day-empty': !date.date, 'weui-calendar-day-today': date.isToday, 'weui-calendar-day-selected': date.isSelected }"
-        @click="selectDate(date)"
+        :class="{
+          'weui-calendar-day-empty': !date.date,
+          'weui-calendar-day-today': date.isToday,
+          'weui-calendar-day-selected': date.isSelected,
+          'weui-calendar-day-disabled': date.isDisabled
+        }"
+        @click="!date.isDisabled && date.date ? selectDate(date) : null"
       >
         {{ date.date ? date.date.date() : '' }}
       </div>
@@ -32,15 +37,15 @@ import { useNow } from '@vueuse/core'
 import dayjs from 'dayjs'
 
 // Props
-const props = defineProps<{
+const props = defineProps<{ 
   modelValue?: Date | string | null
   minDate?: Date | string | null
   maxDate?: Date | string | null
-  disabledDates?: (date: Date) => boolean
+  disabledDates?: Date[] | ((date: Date) => boolean)
 }>()
 
 // Emits
-const emit = defineEmits<{
+const emit = defineEmits<{ 
   (e: 'update:modelValue', value: Date | null): void
   (e: 'change', value: Date | null): void
   (e: 'select', value: Date | null): void
@@ -59,17 +64,33 @@ const currentMonthTitle = computed(() => {
   return `${currentYear.value}年${currentMonth.value + 1}月`
 })
 
+const isDateDisabled = (date: Date): boolean => {
+  // Check if date is in disabledDates array
+  if (Array.isArray(props.disabledDates)) {
+    return props.disabledDates.some(disabledDate => 
+      dayjs(date).isSame(dayjs(disabledDate), 'day')
+    )
+  }
+  
+  // Check if disabledDates is a function
+  if (typeof props.disabledDates === 'function') {
+    return props.disabledDates(date)
+  }
+  
+  return false
+}
+
 const calendarDays = computed(() => {
   const firstDay = new Date(currentYear.value, currentMonth.value, 1)
   const lastDay = new Date(currentYear.value, currentMonth.value + 1, 0)
   const daysInMonth = lastDay.getDate()
   const firstDayOfWeek = firstDay.getDay()
   
-  const days: Array<{ date: Date | null; isToday: boolean; isSelected: boolean; key: string }> = []
+  const days: Array<{ date: Date | null; isToday: boolean; isSelected: boolean; isDisabled: boolean; key: string }> = []
   
   // Add empty days for previous month
   for (let i = 0; i < firstDayOfWeek; i++) {
-    days.push({ date: null, isToday: false, isSelected: false, key: `empty-${i}` })
+    days.push({ date: null, isToday: false, isSelected: false, isDisabled: false, key: `empty-${i}` })
   }
   
   // Add days for current month
@@ -77,11 +98,13 @@ const calendarDays = computed(() => {
     const date = new Date(currentYear.value, currentMonth.value, i)
     const isToday = dayjs(date).isSame(dayjs(), 'day')
     const isSelected = props.modelValue && dayjs(date).isSame(dayjs(props.modelValue), 'day')
+    const isDisabled = isDateDisabled(date)
     
     days.push({ 
       date, 
       isToday, 
       isSelected, 
+      isDisabled,
       key: `day-${i}` 
     })
   }
@@ -90,7 +113,7 @@ const calendarDays = computed(() => {
   const totalCells = 42 // 6 weeks * 7 days
   const remainingCells = totalCells - days.length
   for (let i = 1; i <= remainingCells; i++) {
-    days.push({ date: null, isToday: false, isSelected: false, key: `next-empty-${i}` })
+    days.push({ date: null, isToday: false, isSelected: false, isDisabled: false, key: `next-empty-${i}` })
   }
   
   return days
@@ -187,7 +210,7 @@ const selectDate = (day: { date: Date | null }) => {
   transition: background-color 0.2s;
 }
 
-.weui-calendar-day:hover:not(.weui-calendar-day-empty):not(.weui-calendar-day-selected) {
+.weui-calendar-day:hover:not(.weui-calendar-day-empty):not(.weui-calendar-day-selected):not(.weui-calendar-day-disabled) {
   background-color: #f5f5f5;
 }
 
@@ -203,5 +226,11 @@ const selectDate = (day: { date: Date | null }) => {
 .weui-calendar-day-selected {
   background-color: #09bb07;
   color: white;
+}
+
+.weui-calendar-day-disabled {
+  color: #999;
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 </style>

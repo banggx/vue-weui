@@ -8,6 +8,7 @@ export interface CalendarDate {
   isToday: boolean;
   isSelected: boolean;
   isDisabled: boolean;
+  isInRange: boolean;
 }
 
 // 日历配置选项
@@ -28,6 +29,8 @@ export interface UseCalendarOptions {
   isDateDisabled?: (date: Dayjs) => boolean;
   // 日期格式化函数
   formatter?: (date: Dayjs) => string;
+  // 选择模式：single 或 range
+  mode?: 'single' | 'range';
 }
 
 // 返回值类型
@@ -43,6 +46,8 @@ export interface UseCalendarReturn {
   isDisabled: (date: Dayjs) => boolean;
   // 是否被选中
   isSelected: (date: Dayjs) => boolean;
+  // 是否在范围内
+  isInRange: (date: Dayjs) => boolean;
   // 选择日期
   selectDate: (date: Dayjs) => void;
   // 设置当前年月
@@ -71,7 +76,7 @@ export function useCalendar(options: UseCalendarOptions = {}) {
   
   // 日期范围选择模式
   const isRangeMode = computed(() => {
-    return startDate.value !== null && endDate.value !== null;
+    return options.mode === 'range';
   });
   
   // 计算当前月份的日期矩阵（7×6）
@@ -106,7 +111,8 @@ export function useCalendar(options: UseCalendarOptions = {}) {
           isCurrentMonth: false,
           isToday: date.isSame(dayjs(), 'day'),
           isSelected: false,
-          isDisabled: isDateDisabled(date)
+          isDisabled: isDateDisabled(date),
+          isInRange: false
         });
       }
     }
@@ -118,12 +124,17 @@ export function useCalendar(options: UseCalendarOptions = {}) {
         ? (startDate.value?.isSame(date, 'day') || endDate.value?.isSame(date, 'day'))
         : selectedDate.value?.isSame(date, 'day');
       
+      const isInRange = isRangeMode.value && startDate.value && endDate.value
+        ? date.isSameOrAfter(startDate.value, 'day') && date.isSameOrBefore(endDate.value, 'day')
+        : false;
+      
       dates.push({
         date,
         isCurrentMonth: true,
         isToday: date.isSame(dayjs(), 'day'),
         isSelected,
-        isDisabled: isDateDisabled(date)
+        isDisabled: isDateDisabled(date),
+        isInRange
       });
     }
     
@@ -136,7 +147,8 @@ export function useCalendar(options: UseCalendarOptions = {}) {
           isCurrentMonth: false,
           isToday: date.isSame(dayjs(), 'day'),
           isSelected: false,
-          isDisabled: isDateDisabled(date)
+          isDisabled: isDateDisabled(date),
+          isInRange: false
         });
       }
     }
@@ -188,6 +200,14 @@ export function useCalendar(options: UseCalendarOptions = {}) {
       return startDate.value?.isSame(date, 'day') || endDate.value?.isSame(date, 'day');
     }
     return selectedDate.value?.isSame(date, 'day');
+  };
+  
+  // 判断日期是否在范围内
+  const isInRange = (date: Dayjs): boolean => {
+    if (isRangeMode.value && startDate.value && endDate.value) {
+      return date.isSameOrAfter(startDate.value, 'day') && date.isSameOrBefore(endDate.value, 'day');
+    }
+    return false;
   };
   
   // 选择日期
@@ -251,6 +271,7 @@ export function useCalendar(options: UseCalendarOptions = {}) {
     isToday,
     isDisabled: isDateDisabled,
     isSelected,
+    isInRange,
     selectDate,
     setCurrentMonth,
     prevMonth,
