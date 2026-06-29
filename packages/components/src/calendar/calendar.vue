@@ -12,7 +12,17 @@
     <div class="weui-calendar-weekdays">
       <div v-for="day in weekdays" :key="day" class="weui-calendar-weekday">{{ day }}</div>
     </div>
-    <div class="weui-calendar-days">
+    <div 
+      class="weui-calendar-days"
+      :class="{
+        'month-transition': isTransitioning,
+        'slide-in-left': slideDirection === 'left',
+        'slide-in-right': slideDirection === 'right',
+        'slide-out-left': slideDirection === 'left' && isTransitioning,
+        'slide-out-right': slideDirection === 'right' && isTransitioning,
+        'slide-in-active': !isTransitioning
+      }"
+    >
       <div
         v-for="date in calendarDays"
         :key="date.key"
@@ -21,20 +31,39 @@
           'weui-calendar-day-empty': !date.date,
           'weui-calendar-day-today': date.isToday,
           'weui-calendar-day-selected': date.isSelected,
-          'weui-calendar-day-disabled': date.isDisabled
+          'weui-calendar-day-disabled': date.isDisabled,
+          'weui-calendar-day-range': date.isInRange && !date.isSelected && !date.isToday,
+          'weui-calendar-day-range-start': date.isRangeStart,
+          'weui-calendar-day-range-end': date.isRangeEnd
         }"
         @click="!date.isDisabled && date.date ? selectDate(date) : null"
       >
         {{ date.date ? date.date.date() : '' }}
       </div>
     </div>
+    <!-- Action buttons -->
+    <div class="weui-calendar-actions" v-if="showActions">
+      <button 
+        class="weui-calendar-action weui-calendar-action-clear"
+        @click="clearSelection"
+      >
+        清空
+      </button>
+      <button 
+        class="weui-calendar-action weui-calendar-action-confirm"
+        @click="confirmSelection"
+      >
+        确认
+      </button>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, nextTick } from 'vue'
 import { useNow } from '@vueuse/core'
 import dayjs from 'dayjs'
+import './calendar.less'
 
 // Props
 const props = defineProps<{ 
@@ -42,6 +71,7 @@ const props = defineProps<{
   minDate?: Date | string | null
   maxDate?: Date | string | null
   disabledDates?: Date[] | ((date: Date) => boolean)
+  showActions?: boolean
 }>()
 
 // Emits
@@ -49,6 +79,8 @@ const emit = defineEmits<{
   (e: 'update:modelValue', value: Date | null): void
   (e: 'change', value: Date | null): void
   (e: 'select', value: Date | null): void
+  (e: 'confirm', value: Date | null): void
+  (e: 'clear'): void
 }>()
 
 // State
@@ -56,6 +88,9 @@ const now = useNow()
 const currentDate = ref<Date>(props.modelValue ? new Date(props.modelValue) : new Date())
 const currentMonth = ref<number>(currentDate.value.getMonth())
 const currentYear = ref<number>(currentDate.value.getFullYear())
+const isTransitioning = ref<boolean>(false)
+const slideDirection = ref<'left' | 'right'>('left')
+const showActions = computed(() => props.showActions !== undefined ? props.showActions : false)
 
 // Computed
 const weekdays = computed(() => ['日', '一', '二', '三', '四', '五', '六'])
@@ -86,11 +121,29 @@ const calendarDays = computed(() => {
   const daysInMonth = lastDay.getDate()
   const firstDayOfWeek = firstDay.getDay()
   
-  const days: Array<{ date: Date | null; isToday: boolean; isSelected: boolean; isDisabled: boolean; key: string }> = []
+  const days: Array<{ 
+    date: Date | null; 
+    isToday: boolean; 
+    isSelected: boolean; 
+    isDisabled: boolean; 
+    isInRange: boolean;
+    isRangeStart: boolean;
+    isRangeEnd: boolean;
+    key: string 
+  }> = []
   
   // Add empty days for previous month
   for (let i = 0; i < firstDayOfWeek; i++) {
-    days.push({ date: null, isToday: false, isSelected: false, isDisabled: false, key: `empty-${i}` })
+    days.push({ 
+      date: null, 
+      isToday: false, 
+      isSelected: false, 
+      isDisabled: false, 
+      isInRange: false,
+      isRangeStart: false,
+      isRangeEnd: false,
+      key: `empty-${i}` 
+    })
   }
   
   // Add days for current month
@@ -100,11 +153,19 @@ const calendarDays = computed(() => {
     const isSelected = props.modelValue && dayjs(date).isSame(dayjs(props.modelValue), 'day')
     const isDisabled = isDateDisabled(date)
     
+    // Range selection logic (simplified for single selection)
+    const isInRange = false
+    const isRangeStart = false
+    const isRangeEnd = false
+    
     days.push({ 
       date, 
       isToday, 
       isSelected, 
       isDisabled,
+      isInRange,
+      isRangeStart,
+      isRangeEnd,
       key: `day-${i}` 
     })
   }
@@ -113,29 +174,58 @@ const calendarDays = computed(() => {
   const totalCells = 42 // 6 weeks * 7 days
   const remainingCells = totalCells - days.length
   for (let i = 1; i <= remainingCells; i++) {
-    days.push({ date: null, isToday: false, isSelected: false, isDisabled: false, key: `next-empty-${i}` })
+    days.push({ 
+      date: null, 
+      isToday: false, 
+      isSelected: false, 
+      isDisabled: false, 
+      isInRange: false,
+      isRangeStart: false,
+      isRangeEnd: false,
+      key: `next-empty-${i}` 
+    })
   }
   
   return days
 })
 
 // Methods
-const prevMonth = () => {
+const prevMonth = async () => {
+  slideDirection.value = 'right'
+  isTransitioning.value = true
+  
+  await nextTick()
+  
   if (currentMonth.value === 0) {
     currentMonth.value = 11
     currentYear.value--
   } else {
     currentMonth.value--
   }
+  
+  // Reset transition state after animation
+  setTimeout(() => {
+    isTransitioning.value = false
+  }, 300)
 }
 
-const nextMonth = () => {
+const nextMonth = async () => {
+  slideDirection.value = 'left'
+  isTransitioning.value = true
+  
+  await nextTick()
+  
   if (currentMonth.value === 11) {
     currentMonth.value = 0
     currentYear.value++
   } else {
     currentMonth.value++
   }
+  
+  // Reset transition state after animation
+  setTimeout(() => {
+    isTransitioning.value = false
+  }, 300)
 }
 
 const selectDate = (day: { date: Date | null }) => {
@@ -146,91 +236,18 @@ const selectDate = (day: { date: Date | null }) => {
   }
 }
 
+const clearSelection = () => {
+  emit('update:modelValue', null)
+  emit('change', null)
+  emit('clear')
+}
+
+const confirmSelection = () => {
+  if (props.modelValue) {
+    emit('confirm', new Date(props.modelValue))
+  }
+}
+
 // Watch modelValue changes
 // TODO: Implement watch for modelValue prop changes
 </script>
-
-<style scoped>
-.weui-calendar {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-}
-
-.weui-calendar-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 16px;
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.weui-calendar-nav {
-  background: none;
-  border: none;
-  padding: 4px;
-  cursor: pointer;
-  color: #333;
-}
-
-.weui-calendar-title {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 500;
-  color: #333;
-}
-
-.weui-calendar-weekdays {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  padding: 8px 16px;
-  background-color: #f5f5f5;
-}
-
-.weui-calendar-weekday {
-  text-align: center;
-  font-size: 14px;
-  color: #999;
-  font-weight: 400;
-}
-
-.weui-calendar-days {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  padding: 8px 16px;
-}
-
-.weui-calendar-day {
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  color: #333;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.weui-calendar-day:hover:not(.weui-calendar-day-empty):not(.weui-calendar-day-selected):not(.weui-calendar-day-disabled) {
-  background-color: #f5f5f5;
-}
-
-.weui-calendar-day-empty {
-  visibility: hidden;
-}
-
-.weui-calendar-day-today {
-  color: #09bb07;
-  font-weight: 500;
-}
-
-.weui-calendar-day-selected {
-  background-color: #09bb07;
-  color: white;
-}
-
-.weui-calendar-day-disabled {
-  color: #999;
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-</style>

@@ -1,4 +1,8 @@
 import Calendar from './calendar.vue'
+import CalendarPicker from './calendarPicker.vue'
 
-export { Calendar }
+// Import styles
+import './calendar.less'
+
+export { Calendar, CalendarPicker }
 export default Calendar
