@@ -1,6 +1,6 @@
 <template>
   <div v-if="visible" class="weui-calendar-picker" :style="{ zIndex: zIndex }">
-    <Mask />
+    <Mask @click="hide" />
     <div class="weui-calendar-picker-content" @click.stop>
       <div class="weui-calendar-picker-header">
         <button class="weui-calendar-picker-close" @click="hide">
@@ -120,7 +120,7 @@ const handleEscKey = (e: KeyboardEvent) => {
 
 // Click outside handler
 const handleClickOutside = (e: MouseEvent) => {
-  if (visible.value && e.target === document.querySelector('.weui-calendar-picker')) {
+  if (visible.value && !e.target.closest('.weui-calendar-picker')) {
     hide()
   }
 }
