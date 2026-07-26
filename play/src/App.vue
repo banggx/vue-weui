@@ -231,30 +231,30 @@
 
   <!-- Calendar 日历组件演示 -->
   <weui-button @click="visibleCalendar = true">打开日历（单选）</weui-button>
-  <weui-calendar
+  <weui-calendar-picker
     v-model="selectedDate"
     :show="visibleCalendar"
     title="选择日期"
-    mode="single"
-    :show-actions="true"
+    type="single"
     @update:show="visibleCalendar = $event"
     @confirm="handleCalendarConfirm"
-  ></weui-calendar>
-  <div v-if="selectedDate" style="margin-top: 8px; color: #666;">
+  />
+  <div v-if="selectedDate" style="margin-top: 8px; color: #666">
     已选择日期：{{ formatDate(selectedDate) }}
   </div>
 
-  <weui-button @click="visibleRangeCalendar = true">打开日历（范围选择）</weui-button>
-  <weui-calendar
+  <weui-button @click="visibleRangeCalendar = true"
+    >打开日历（范围选择）</weui-button
+  >
+  <weui-calendar-picker
     v-model="selectedRange"
     :show="visibleRangeCalendar"
     title="选择日期范围"
-    mode="range"
-    :show-actions="true"
+    type="range"
     @update:show="visibleRangeCalendar = $event"
     @confirm="handleRangeCalendarConfirm"
-  ></weui-calendar>
-  <div v-if="selectedRange" style="margin-top: 8px; color: #666;">
+  />
+  <div v-if="selectedRange" style="margin-top: 8px; color: #666">
     已选择范围：{{ formatRange(selectedRange) }}
   </div>
 </template>
@@ -298,7 +298,10 @@ const selectedRange = ref<[Date, Date] | null>(null);
 
 const formatDate = (date: Date | null): string => {
   if (!date) return '';
-  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
+    2,
+    '0'
+  )}-${String(date.getDate()).padStart(2, '0')}`;
 };
 
 const formatRange = (range: [Date, Date] | null): string => {
