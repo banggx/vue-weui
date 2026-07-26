@@ -146,6 +146,10 @@ export default {
               text: 'Uploader',
               link: '/components/uploader/'
             },
+            {
+              text: 'Calendar',
+              link: '/components/calendar/'
+            },
           ]
         },
         {
