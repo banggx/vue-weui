@@ -1,60 +1,91 @@
-import { onMounted, onUnmounted } from 'vue';
+import { onBeforeUnmount } from 'vue';
 
+/**
+ * useLockScroll - 锁定背景滚动
+ * - SSR 安全：typeof document !== 'undefined' 守卫
+ * - iOS 橡皮筋效果：通过 touchmove 事件拦截（passive: false）
+ * - 返回 cleanup 函数用于手动解锁
+ */
 export function useLockScroll() {
-  const lockScroll = () => {
-    // 保存当前滚动位置
-    const scrollY = window.scrollY;
-    
-    // 禁用body滚动
+  let savedOverflow = '';
+  let savedPosition = '';
+  let savedTop = '';
+  let savedWidth = '';
+  let locked = false;
+
+  // 保存函数引用，确保 add/remove 匹配
+  const preventDefault = (e: TouchEvent) => {
+    // 允许内部滚动容器正常滚动
+    const target = e.target as HTMLElement;
+    const scrollable = target.closest(
+      '.weui-calendar-scroll, .weui-calendar-picker-body'
+    );
+    if (scrollable) {
+      return;
+    }
+    e.preventDefault();
+  };
+
+  const lockScroll = (): (() => void) => {
+    // SSR 守卫
+    if (typeof document === 'undefined') {
+      return () => {};
+    }
+    if (locked) {
+      return unlockScroll;
+    }
+    locked = true;
+
+    // 保存当前状态
+    savedOverflow = document.body.style.overflow;
+    savedPosition = document.body.style.position;
+    savedTop = document.body.style.top;
+    savedWidth = document.body.style.width;
+
+    // 锁定滚动
+    document.body.style.overflow = 'hidden';
     document.body.style.position = 'fixed';
-    document.body.style.top = `-${scrollY}px`;
+    document.body.style.top = `-${window.scrollY}px`;
     document.body.style.width = '100%';
-    
-    // 防止页面滚动
-    const preventDefault = (e: Event) => {
-      e.preventDefault();
-    };
-    
-    document.body.addEventListener('touchmove', preventDefault, { passive: false });
-    
-    return () => {
-      // 恢复body滚动
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      
-      // 恢复滚动位置
-      window.scrollTo(0, scrollY);
-      
-      document.body.removeEventListener('touchmove', preventDefault);
-    };
+
+    // iOS touchmove 拦截（防止橡皮筋效果）
+    // 使用 passive: false 确保 preventDefault 生效
+    document.addEventListener('touchmove', preventDefault, { passive: false });
+
+    return unlockScroll;
   };
-  
+
   const unlockScroll = () => {
-    // 恢复body滚动
-    document.body.style.position = '';
-    document.body.style.top = '';
-    document.body.style.width = '';
-    
-    // 移除事件监听器
-    const preventDefault = (e: Event) => {
-      e.preventDefault();
-    };
-    
-    document.body.removeEventListener('touchmove', preventDefault);
+    // SSR 守卫
+    if (typeof document === 'undefined') {
+      return;
+    }
+    if (!locked) {
+      return;
+    }
+    locked = false;
+
+    // 恢复滚动位置
+    const scrollY = parseInt(document.body.style.top || '0', 10) * -1;
+
+    // 恢复样式
+    document.body.style.overflow = savedOverflow;
+    document.body.style.position = savedPosition;
+    document.body.style.top = savedTop;
+    document.body.style.width = savedWidth;
+
+    window.scrollTo(0, scrollY);
+
+    // 正确移除 touchmove 监听器（使用同一函数引用）
+    document.removeEventListener('touchmove', preventDefault);
   };
-  
-  onMounted(() => {
-    // 在组件挂载时，如果需要锁定滚动，可以调用lockScroll
+
+  // 自动在组件卸载时解锁
+  onBeforeUnmount(() => {
+    if (locked) {
+      unlockScroll();
+    }
   });
-  
-  onUnmounted(() => {
-    // 在组件卸载时，确保解锁滚动
-    unlockScroll();
-  });
-  
-  return {
-    lockScroll,
-    unlockScroll
-  };
+
+  return { lockScroll, unlockScroll };
 }

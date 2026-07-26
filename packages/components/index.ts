@@ -1,5 +1,6 @@
 import * as components from './src';
 export * from './src';
+export { Utils, utils } from './src';
 import { App } from 'vue';
 
 export default {

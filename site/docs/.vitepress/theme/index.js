@@ -14,6 +14,7 @@ import DatePicker from '../components/DatePicker.vue';
 import TimePicker from '../components/TimePicker.vue';
 import Uploader from '../components/Uploader.vue';
 import Gallery from '../components/Gallery.vue';
+import CalendarDemo from '../components/CalendarDemo.vue';
 
 export default {
   ...DefaultTheme,
@@ -40,5 +41,6 @@ export default {
     app.component('custom-time-picker', TimePicker);
     app.component('custom-uploader', Uploader);
     app.component('custom-gallery', Gallery);
+    app.component('custom-calendar-demo', CalendarDemo);
   },
 };
