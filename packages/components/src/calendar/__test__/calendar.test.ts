@@ -14,31 +14,6 @@ vi.mock('../composables/useSwipe', () => ({
   useSwipe: vi.fn()
 }));
 
-vi.mock('../composables/useLockScroll', () => ({
-  useLockScroll: vi.fn().mockReturnValue({
-    lockScroll: vi.fn().mockReturnValue(vi.fn()),
-    unlockScroll: vi.fn()
-  })
-}));
-
-// Mock HalfScreenDialog component
-const HalfScreenDialog = {
-  name: 'HalfScreenDialog',
-  props: ['modelValue', 'title', 'showClose', 'iconType'],
-  emits: ['update:modelValue', 'close'],
-  template: `
-    <div class="mock-half-screen-dialog" v-if="modelValue">
-      <div class="mock-half-screen-dialog__hd">
-        <button v-if="showClose" class="mock-close-btn" @click="$emit('close')">Close</button>
-        <span class="mock-title">{{ title }}</span>
-      </div>
-      <div class="mock-half-screen-dialog__bd">
-        <slot></slot>
-      </div>
-    </div>
-  `
-};
-
 // Mock Icon component
 const Icon = {
   name: 'Icon',
@@ -49,14 +24,12 @@ const Icon = {
 const mountCalendar = (props = {}) => {
   return mount(Calendar, {
     props: {
-      show: true,
       modelValue: null,
       ...props
     },
     global: {
       stubs: {
-        'HalfScreenDialog': HalfScreenDialog,
-        'Icon': Icon
+        Icon: Icon
       }
     }
   });
@@ -68,27 +41,9 @@ describe('Calendar', () => {
   });
 
   describe('Rendering', () => {
-    it('should render calendar when show is true', () => {
-      const wrapper = mountCalendar({ show: true });
-      expect(wrapper.find('.weui-calendar').exists()).toBe(true);
-      wrapper.unmount();
-    });
-
-    it('should not render when show is false', () => {
-      const wrapper = mountCalendar({ show: false });
-      expect(wrapper.find('.weui-calendar').exists()).toBe(false);
-      wrapper.unmount();
-    });
-
-    it('should display default title', () => {
+    it('should render calendar component', () => {
       const wrapper = mountCalendar();
-      expect(wrapper.find('.mock-title').text()).toBe('选择日期');
-      wrapper.unmount();
-    });
-
-    it('should display custom title', () => {
-      const wrapper = mountCalendar({ title: '选择就诊日期' });
-      expect(wrapper.find('.mock-title').text()).toBe('选择就诊日期');
+      expect(wrapper.find('.weui-calendar').exists()).toBe(true);
       wrapper.unmount();
     });
 
@@ -104,10 +59,12 @@ describe('Calendar', () => {
       wrapper.unmount();
     });
 
-    it('should not show actions (removed per user feedback)', () => {
+    it('should display current month title', () => {
       const wrapper = mountCalendar();
-      // Bottom actions removed - confirm button is now in header
-      expect(wrapper.find('.weui-calendar-actions').exists()).toBe(false);
+      const title = wrapper.find('.weui-calendar-title');
+      expect(title.exists()).toBe(true);
+      // Title should contain year and month
+      expect(title.text()).toMatch(/\d+年\d+月/);
       wrapper.unmount();
     });
   });
@@ -172,14 +129,14 @@ describe('Calendar', () => {
     it('should navigate to previous month', async () => {
       const wrapper = mountCalendar();
       const prevBtn = wrapper.find('.weui-calendar-prev');
-      
+
       await prevBtn.trigger('click');
       await nextTick();
-      
+
       // Wait for animation
-      await new Promise(resolve => setTimeout(resolve, 350));
+      await new Promise((resolve) => setTimeout(resolve, 350));
       await nextTick();
-      
+
       // Title should have changed
       expect(wrapper.find('.weui-calendar-title').exists()).toBe(true);
       wrapper.unmount();
@@ -188,57 +145,16 @@ describe('Calendar', () => {
     it('should navigate to next month', async () => {
       const wrapper = mountCalendar();
       const nextBtn = wrapper.find('.weui-calendar-next');
-      
+
       await nextBtn.trigger('click');
       await nextTick();
-      
+
       // Wait for animation
-      await new Promise(resolve => setTimeout(resolve, 350));
+      await new Promise((resolve) => setTimeout(resolve, 350));
       await nextTick();
-      
+
       // Title should have changed
       expect(wrapper.find('.weui-calendar-title').exists()).toBe(true);
-      wrapper.unmount();
-    });
-  });
-
-  describe('Confirm via Header', () => {
-    it('should emit confirm event when clicking header confirm button', async () => {
-      const testDate = new Date();
-      const wrapper = mountCalendar({
-        modelValue: testDate
-      });
-
-      // Confirm button is now in the header (extra slot of HalfScreenDialog)
-      const confirmBtn = wrapper.find('.weui-calendar-header-confirm');
-      if (confirmBtn.exists()) {
-        await confirmBtn.trigger('click');
-        await nextTick();
-        expect(wrapper.emitted('confirm')).toBeDefined();
-      }
-      wrapper.unmount();
-    });
-  });
-
-  describe('Show/Hide', () => {
-    it('should emit update:show when closing', async () => {
-      const wrapper = mountCalendar({ show: true });
-
-      await wrapper.find('.mock-close-btn').trigger('click');
-      await nextTick();
-
-      expect(wrapper.emitted('update:show')).toBeDefined();
-      expect(wrapper.emitted('update:show')![0][0]).toBe(false);
-      wrapper.unmount();
-    });
-
-    it('should emit hide event when closing', async () => {
-      const wrapper = mountCalendar({ show: true });
-
-      await wrapper.find('.mock-close-btn').trigger('click');
-      await nextTick();
-
-      expect(wrapper.emitted('hide')).toBeDefined();
       wrapper.unmount();
     });
   });
@@ -271,6 +187,60 @@ describe('Calendar', () => {
       if (today.getDate() > 15) {
         expect(disabledDays.length).toBeGreaterThan(0);
       }
+      wrapper.unmount();
+    });
+  });
+
+  describe('Month Picker Mode', () => {
+    it('should toggle month picker when clicking title', async () => {
+      const wrapper = mountCalendar();
+      const title = wrapper.find('.weui-calendar-title');
+      
+      // Initially in day mode
+      expect(wrapper.find('.weui-calendar-days').exists()).toBe(true);
+      expect(wrapper.find('.weui-calendar-month-picker').exists()).toBe(false);
+
+      // Click title to switch to month picker
+      await title.trigger('click');
+      await nextTick();
+
+      // Should now be in month picker mode
+      expect(wrapper.find('.weui-calendar-month-picker').exists()).toBe(true);
+      expect(wrapper.find('.weui-calendar-days').exists()).toBe(false);
+
+      wrapper.unmount();
+    });
+
+    it('should render 12 months in month picker', async () => {
+      const wrapper = mountCalendar();
+      const title = wrapper.find('.weui-calendar-title');
+      
+      await title.trigger('click');
+      await nextTick();
+
+      const months = wrapper.findAll('.weui-calendar-month');
+      expect(months.length).toBe(12);
+
+      wrapper.unmount();
+    });
+
+    it('should select month and return to day view', async () => {
+      const wrapper = mountCalendar();
+      const title = wrapper.find('.weui-calendar-title');
+      
+      // Switch to month picker
+      await title.trigger('click');
+      await nextTick();
+
+      // Click on a month (e.g., March)
+      const months = wrapper.findAll('.weui-calendar-month');
+      await months[2].trigger('click'); // March (index 2)
+      await nextTick();
+
+      // Should return to day view
+      expect(wrapper.find('.weui-calendar-days').exists()).toBe(true);
+      expect(wrapper.find('.weui-calendar-month-picker').exists()).toBe(false);
+
       wrapper.unmount();
     });
   });
