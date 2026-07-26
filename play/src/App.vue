@@ -228,6 +228,35 @@
     @close="visibleGallery = false"
     @delete="(index) => images.splice(index, 1)"
   ></weui-gallery>
+
+  <!-- Calendar 日历组件演示 -->
+  <weui-button @click="visibleCalendar = true">打开日历（单选）</weui-button>
+  <weui-calendar
+    v-model="selectedDate"
+    :show="visibleCalendar"
+    title="选择日期"
+    mode="single"
+    :show-actions="true"
+    @update:show="visibleCalendar = $event"
+    @confirm="handleCalendarConfirm"
+  ></weui-calendar>
+  <div v-if="selectedDate" style="margin-top: 8px; color: #666;">
+    已选择日期：{{ formatDate(selectedDate) }}
+  </div>
+
+  <weui-button @click="visibleRangeCalendar = true">打开日历（范围选择）</weui-button>
+  <weui-calendar
+    v-model="selectedRange"
+    :show="visibleRangeCalendar"
+    title="选择日期范围"
+    mode="range"
+    :show-actions="true"
+    @update:show="visibleRangeCalendar = $event"
+    @confirm="handleRangeCalendarConfirm"
+  ></weui-calendar>
+  <div v-if="selectedRange" style="margin-top: 8px; color: #666;">
+    已选择范围：{{ formatRange(selectedRange) }}
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -260,6 +289,32 @@ const images = ref([
 ]);
 const visibleGallery = ref(false);
 const galleryIndex = ref(0);
+
+// Calendar 日历组件相关
+const visibleCalendar = ref(false);
+const visibleRangeCalendar = ref(false);
+const selectedDate = ref<Date | null>(null);
+const selectedRange = ref<[Date, Date] | null>(null);
+
+const formatDate = (date: Date | null): string => {
+  if (!date) return '';
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+};
+
+const formatRange = (range: [Date, Date] | null): string => {
+  if (!range) return '';
+  return `${formatDate(range[0])} 至 ${formatDate(range[1])}`;
+};
+
+const handleCalendarConfirm = (date: Date | null) => {
+  selectedDate.value = date;
+  visibleCalendar.value = false;
+};
+
+const handleRangeCalendarConfirm = (range: [Date, Date] | null) => {
+  selectedRange.value = range;
+  visibleRangeCalendar.value = false;
+};
 
 const formData = ref({
   name: undefined,

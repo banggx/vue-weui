@@ -1,4 +1,4 @@
-import { ref, computed, reactive } from 'vue';
+import { ref, computed } from 'vue';
 import dayjs, { Dayjs } from 'dayjs';
 
 // 日历日期类型
@@ -68,42 +68,51 @@ export function useCalendar(options: UseCalendarOptions = {}) {
   // 当前年月
   const currentYear = ref<number>(dayjs().year());
   const currentMonth = ref<number>(dayjs().month() + 1);
-  
+
   // 选中的日期
-  const selectedDate = ref<Dayjs | null>(options.modelValue ? dayjs(options.modelValue) : null);
-  const startDate = ref<Dayjs | null>(options.startDate ? dayjs(options.startDate) : null);
-  const endDate = ref<Dayjs | null>(options.endDate ? dayjs(options.endDate) : null);
-  
+  const selectedDate = ref<Dayjs | null>(
+    options.modelValue ? dayjs(options.modelValue) : null
+  );
+  const startDate = ref<Dayjs | null>(
+    options.startDate ? dayjs(options.startDate) : null
+  );
+  const endDate = ref<Dayjs | null>(
+    options.endDate ? dayjs(options.endDate) : null
+  );
+
   // 日期范围选择模式
   const isRangeMode = computed(() => {
     return options.mode === 'range';
   });
-  
+
   // 计算当前月份的日期矩阵（7×6）
   const currentMonthDates = computed<CalendarDate[][]>(() => {
     const year = currentYear.value;
     const month = currentMonth.value;
-    
+
     // 获取当月第一天和最后一天
     const firstDayOfMonth = dayjs(`${year}-${month}-01`);
     const lastDayOfMonth = firstDayOfMonth.endOf('month');
-    
+
     // 获取当月第一天是星期几（0=周日，1=周一...6=周六）
     const firstDayOfWeek = firstDayOfMonth.day();
-    
+
     // 获取上个月需要显示的天数
     const daysFromPrevMonth = firstDayOfWeek;
-    
+
     // 获取下个月需要显示的天数
     const totalDaysInMonth = lastDayOfMonth.date();
     const totalCells = 42; // 7天×6行
-    const daysFromNextMonth = totalCells - (daysFromPrevMonth + totalDaysInMonth);
-    
+    const daysFromNextMonth =
+      totalCells - (daysFromPrevMonth + totalDaysInMonth);
+
     const dates: CalendarDate[] = [];
-    
+
     // 添加上个月的日期
     if (daysFromPrevMonth > 0) {
-      const prevMonthLastDay = firstDayOfMonth.subtract(1, 'month').endOf('month');
+      const prevMonthLastDay = firstDayOfMonth
+        .subtract(1, 'month')
+        .endOf('month');
       for (let i = daysFromPrevMonth; i > 0; i--) {
         const date = prevMonthLastDay.subtract(i - 1, 'day');
         dates.push({
@@ -116,18 +125,21 @@ export function useCalendar(options: UseCalendarOptions = {}) {
         });
       }
     }
-    
+
     // 添加当月的日期
     for (let i = 1; i <= totalDaysInMonth; i++) {
       const date = dayjs(`${year}-${month}-${i}`);
-      const isSelected = isRangeMode.value 
-        ? (startDate.value?.isSame(date, 'day') || endDate.value?.isSame(date, 'day'))
+      const isSelected = isRangeMode.value
+        ? startDate.value?.isSame(date, 'day') ||
+          endDate.value?.isSame(date, 'day')
         : selectedDate.value?.isSame(date, 'day');
-      
-      const isInRange = isRangeMode.value && startDate.value && endDate.value
-        ? date.isSameOrAfter(startDate.value, 'day') && date.isSameOrBefore(endDate.value, 'day')
-        : false;
-      
+
+      const isInRange =
+        isRangeMode.value && startDate.value && endDate.value
+          ? date.isSameOrAfter(startDate.value, 'day') &&
+            date.isSameOrBefore(endDate.value, 'day')
+          : false;
+
       dates.push({
         date,
         isCurrentMonth: true,
@@ -137,7 +149,7 @@ export function useCalendar(options: UseCalendarOptions = {}) {
         isInRange
       });
     }
-    
+
     // 添加下个月的日期
     if (daysFromNextMonth > 0) {
       for (let i = 1; i <= daysFromNextMonth; i++) {
@@ -152,21 +164,21 @@ export function useCalendar(options: UseCalendarOptions = {}) {
         });
       }
     }
-    
+
     // 转换为7×6矩阵
     const matrix: CalendarDate[][] = [];
     for (let i = 0; i < 6; i++) {
       matrix[i] = dates.slice(i * 7, (i + 1) * 7);
     }
-    
+
     return matrix;
   });
-  
+
   // 判断是否为今日
   const isToday = (date: Dayjs): boolean => {
     return date.isSame(dayjs(), 'day');
   };
-  
+
   // 判断日期是否被禁用
   const isDateDisabled = (date: Dayjs): boolean => {
     // 检查是否在最小/最大日期范围内
@@ -176,7 +188,7 @@ export function useCalendar(options: UseCalendarOptions = {}) {
     if (options.maxDate && date.isAfter(dayjs(options.maxDate), 'day')) {
       return true;
     }
-    
+
     // 检查是否在禁用日期数组中
     if (options.disabledDates && options.disabledDates.length > 0) {
       for (const disabledDate of options.disabledDates) {
@@ -185,31 +197,37 @@ export function useCalendar(options: UseCalendarOptions = {}) {
         }
       }
     }
-    
+
     // 检查是否通过禁用函数判断
     if (options.isDateDisabled && options.isDateDisabled(date)) {
       return true;
     }
-    
+
     return false;
   };
-  
+
   // 判断日期是否被选中
   const isSelected = (date: Dayjs): boolean => {
     if (isRangeMode.value) {
-      return startDate.value?.isSame(date, 'day') || endDate.value?.isSame(date, 'day');
+      return (
+        startDate.value?.isSame(date, 'day') ||
+        endDate.value?.isSame(date, 'day')
+      );
     }
     return selectedDate.value?.isSame(date, 'day');
   };
-  
+
   // 判断日期是否在范围内
   const isInRange = (date: Dayjs): boolean => {
     if (isRangeMode.value && startDate.value && endDate.value) {
-      return date.isSameOrAfter(startDate.value, 'day') && date.isSameOrBefore(endDate.value, 'day');
+      return (
+        date.isSameOrAfter(startDate.value, 'day') &&
+        date.isSameOrBefore(endDate.value, 'day')
+      );
     }
     return false;
   };
-  
+
   // 选择日期
   const selectDate = (date: Dayjs) => {
     if (isRangeMode.value) {
@@ -230,13 +248,13 @@ export function useCalendar(options: UseCalendarOptions = {}) {
       selectedDate.value = date;
     }
   };
-  
+
   // 设置当前年月
   const setCurrentMonth = (year: number, month: number) => {
     currentYear.value = year;
     currentMonth.value = month;
   };
-  
+
   // 上一月
   const prevMonth = () => {
     if (currentMonth.value === 1) {
@@ -246,7 +264,7 @@ export function useCalendar(options: UseCalendarOptions = {}) {
       currentMonth.value--;
     }
   };
-  
+
   // 下一月
   const nextMonth = () => {
     if (currentMonth.value === 12) {
@@ -256,14 +274,14 @@ export function useCalendar(options: UseCalendarOptions = {}) {
       currentMonth.value++;
     }
   };
-  
+
   // 跳转到今天
   const goToToday = () => {
     const today = dayjs();
     currentYear.value = today.year();
     currentMonth.value = today.month() + 1;
   };
-  
+
   return {
     currentMonthDates,
     currentYear,
